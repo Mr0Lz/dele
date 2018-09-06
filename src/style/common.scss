@@ -1,0 +1,18 @@
+body,div,span,header,footer,nav,section,aside,article,ul,dl,dt,dd,li,a,p,h1,h2,h3,h4,h5,h6,i,b,textarea,button,input,select,figure,figcaption{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    border: none;
+    color: #191919;
+    font-weight: normal;
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; //（移动端上）有事件监听的元素被点击的时候会被高亮显示，比如我的android上表现为一个蓝框加上半透明的背景
+    -webkit-font-smoothing: antialiased; //对字体进行抗锯齿渲染
+    &:hover{
+        outline: none;
+    }
+}
+
