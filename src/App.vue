@@ -10,13 +10,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+/*引入common 全局样式  style 不能加scoped  不然会引用失败*/
+@import './style/common';
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

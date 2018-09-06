@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <div>{{ msg }}</div>
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">Slide 1</div>
@@ -19,8 +19,9 @@
 </template>
 
 <script>
-import Swiper from 'swiper'
-import 'swiper/dist/css/swiper.css'
+import '../style/swiper-3.4.2.min.css'
+import '../plugins/swiper-3.4.2.min.js'
+
 export default {
   name: 'HelloWorld',
   data () {
@@ -29,43 +30,13 @@ export default {
     }
   },
   mounted () {
-    new Swiper('.swiper-container', {
-      loop: true,
-      // 如果需要分页器
-      pagination: {
-        el: '.swiper-pagination'
-      },
-      // 如果需要前进后退按钮
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      }
-      // 如果需要滚动条
-      // scrollbar: {
-      //   el: '.swiper-scrollbar',
-      // },
-    })
+      new Swiper('.swiper-container');
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h1,
-h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 .swiper-slide {
   height: 100px;
   border: 1px solid #eee;
