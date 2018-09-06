@@ -1,0 +1,77 @@
+$col191919:#191919;
+$col7F7F7F:#7F7F7F;
+$colE7290F:#E7290F;
+$colFFF:#FFF;
+$col111:#111;
+$colF2:#F2F2F2;
+$colFFFEEC:#FFFEEC;
+$col3791FA:#3791FA;
+$colCCC:#CCC;
+$colFCCE00:#FCCE00;
+$col5CB531:#5CB531;
+
+@mixin bg($url,$sizew:100%,$sizeh:100%,$l:0,$t:0){
+    background-image:url($url);
+    -webkit-background-size: $sizew $sizeh;
+            background-size: $sizew $sizeh;
+    background-position: $l $t;
+    background-repeat: no-repeat;
+}
+
+@mixin borderRadius($r) {
+    -webkit-border-radius: $r; 
+    border-radius: $r
+}
+
+@mixin absolute($t,$l){
+    position: absolute;
+    top:$t;
+    left:$l;
+}
+
+@mixin wh($w,$h){
+    width: $w;
+    height: $h;
+}
+
+@mixin center{
+    position: absolute;
+    left: 50%;
+    top:50%;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+}
+
+@mixin ct{
+    position: absolute;
+    top: 50%;
+    -webkit-transform:translateY(-50%);
+        -ms-transform:translateY(-50%);
+            transform:translateY(-50%);
+}
+
+@mixin cl{
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+
+@mixin font($size,$c,$line-height:normal){
+    font-size: $size;
+    line-height:$line-height;
+    color:$c;
+}
+
+@mixin flex($type){
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: $type;
+    -webkit-justify-content: $type;
+        -ms-flex-pack: $type;
+            justify-content: $type;
+}
