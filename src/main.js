@@ -3,8 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+//兼容IE9+,低版本安卓
 import 'babel-polyfill'
+//rem
+import './config/rem'
+
 
 Vue.config.productionTip = false
 

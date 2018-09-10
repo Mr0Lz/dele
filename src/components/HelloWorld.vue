@@ -1,6 +1,9 @@
 <template>
   <div class="hello">
-    <div>{{ msg }}</div>
+      <a href="###" class="btn">btn</a>
+  <div class="btn">btn</div>
+  <span class="btn">btn</span>
+  <button class="btn">btn</button>
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">Slide 1</div>
@@ -22,6 +25,12 @@
 import '../style/swiper-3.4.2.min.css'
 import '../plugins/swiper-3.4.2.min.js'
 
+document.documentElement.style.fontSize=100*(document.documentElement.clientWidth/375)+'px';
+
+window.onresize=function(){
+  document.documentElement.style.fontSize=100*(document.documentElement.clientWidth/375)+'px';
+}
+
 export default {
   name: 'HelloWorld',
   data () {
@@ -37,6 +46,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import '../style/mixin';
+
+
+.btn{
+  margin: 0.24rem auto;
+  @include btn($bg:$col3791FA,$c:$colFFF,$border:none);
+}
+
 .swiper-slide {
   height: 100px;
   border: 1px solid #eee;
