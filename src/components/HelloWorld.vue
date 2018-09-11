@@ -25,11 +25,6 @@
 import '../style/swiper-3.4.2.min.css'
 import '../plugins/swiper-3.4.2.min.js'
 
-document.documentElement.style.fontSize=100*(document.documentElement.clientWidth/375)+'px';
-
-window.onresize=function(){
-  document.documentElement.style.fontSize=100*(document.documentElement.clientWidth/375)+'px';
-}
 
 export default {
   name: 'HelloWorld',
