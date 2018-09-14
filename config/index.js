@@ -19,7 +19,7 @@ for(var k in interfaces){
       }
     });
 }
-console.log(ip)
+
 
 module.exports = {
   dev: {
