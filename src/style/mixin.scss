@@ -81,14 +81,13 @@ $col5CB531:#5CB531;
     align-items: $ytype;
 }
 
-@mixin  btn($bg:$colFFF,$c:$col3791FA,$border:1px solid $col3791FA,$w:3.18rem,$h:0.38rem,$lh:0.4rem,$fsz:0.16rem){
+@mixin  btn($bg:$colFFF,$c:$col3791FA,$border:1px solid $col3791FA,$w:3.18rem,$h:0.38rem,$lh:0.4rem,$fsz:0.16rem,$align:center){
     display: block;
     background-color: $bg;
     border:$border;
     width:$w;
     height: $h;
-    text-align: center;
-    @include font($fsz,$c,$lh);
+    @include font($fsz,$c,$align,$lh);
     @include borderRadius(0.06rem);
     
 }   
