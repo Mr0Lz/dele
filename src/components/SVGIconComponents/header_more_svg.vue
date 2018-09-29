@@ -7,10 +7,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.head-more{
-    display: block;    
-    width:60%;
-    height: 100%;
-    margin-left: 20%;
+.head-more{  
+    width:0.32rem;
+    height: 0.32rem;
 }
 </style>

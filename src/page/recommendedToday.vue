@@ -1,15 +1,21 @@
 <template>
-    <div>
+    <section>
         <head-nav></head-nav>
-    </div>
+        <section class="">
+            
+        </section>
+        <home-foot-bar></home-foot-bar>
+    </section>
 </template>
 <script>
 import headNav from './../components/header/headNav'
+import homeFootBar from './../components/footer/homeFootBar'
 
 export default {
     name: 'recommendedToday',
     components: {
-        headNav
+        headNav,
+        homeFootBar
     }
 }
 </script>
