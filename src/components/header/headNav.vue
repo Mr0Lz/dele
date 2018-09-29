@@ -9,11 +9,16 @@
         <section class="head-title">
             {{title}}
         </section>
-        <router-link class="other-btn" to="###">•••</router-link>
+        <!-- <router-link class="other-btn" to="###">•••</router-link> -->
+        <router-link class="other-btn" to="##">
+            <head-more></head-more>
+        </router-link>
     </header>
 </template>
 <script>
-javascript:(function(e){e.setAttribute("src","http://192.168.0.65:3000/target/target-script-min.js#anonymous");document.getElementsByTagName("body")[0].appendChild(e);})(document.createElement("script"));void(0);
+//javascript:(function(e){e.setAttribute("src","http://192.168.0.65:3000/target/target-script-min.js#anonymous");document.getElementsByTagName("body")[0].appendChild(e);})(document.createElement("script"));void(0);
+import headMore from '../SVGIconComponents/header_more_svg'
+
 export default {
     props:[],
     name: 'headNav',
@@ -21,6 +26,9 @@ export default {
         return {
             title:"得乐商城"
         }
+    },
+    components:{
+        headMore
     }
 }
 </script>
@@ -32,7 +40,6 @@ export default {
     @include flex();
     .go-back{
         @include font(0.16rem,$colFFF,left,0.44rem);
-       
     }
     .icon{
         width:0.26rem;
@@ -44,9 +51,12 @@ export default {
         -webkit-box-flex: 64%;  -webkit-flex: 64%;  -ms-flex: 64%;  flex: 64%;
     }
     .other-btn{
-        @include font(0.18rem,$colFFF,center,0.44rem);
+        //@include font(0.32rem,$colFFF,center,0.44rem); //使用•••  设置
+        //使用可编辑的 SVG 图标系统
     }
     .go-back,.other-btn{
+        height: 0.44rem;
+        line-height: 0.44rem;
         letter-spacing: 0.02rem;
        -webkit-box-flex: 18%;  -webkit-flex: 18%;  -ms-flex: 18%;  flex: 18%;
     }
