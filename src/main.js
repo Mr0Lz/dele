@@ -7,6 +7,8 @@ import router from './router'
 import 'babel-polyfill'
 //rem
 import './config/rem'
+//使用svg-sprite-loader 处理svg
+import './config/svgSprite'
 
 
 Vue.config.productionTip = false

@@ -54,10 +54,16 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
+        exclude:[resolve('src/images/svgSpriteIcon')],//指定不需要处理的路径,解决与svg-sprite-loader 的冲突
         options: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: [resolve('src/images/svgSpriteIcon')]//指定需要处理的路径,解决与url-loader 的冲突
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
