@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import recommendedToday from '@/page/recommendedToday'
+import today from '@/page/today'
 
 Vue.use(Router)
 
@@ -9,12 +9,22 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: recommendedToday
+      component: today
     },
     {
-      path: '/recommendedToday',
-      name: 'recommendedToday',
-      component: recommendedToday
+      path: '/today',
+      name: 'today',
+      component: today
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: today
+    },
+    {
+      path: '/personal',
+      name: 'personal',
+      component: today
     }
   ]
 })

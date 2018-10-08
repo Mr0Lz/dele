@@ -12,7 +12,7 @@ import headNav from './../components/header/headNav'
 import homeFootBar from './../components/footer/homeFootBar'
 
 export default {
-    name: 'recommendedToday',
+    name: 'today',
     components: {
         headNav,
         homeFootBar
