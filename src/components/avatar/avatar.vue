@@ -1,5 +1,5 @@
 <template>
-    <section :class=" 'round avatar-'+size ">
+    <section :class=" 'round avatar-'+size " @click="onAvatarTap">
         <img :src="imgSrc ? imgSrc : defaultImg " alt="">
     </section>
 </template>
@@ -9,12 +9,17 @@ export default {
     name: 'avatar',
     data(){
         return {
-            defaultImg:"static/avatar.jpg"
+            defaultImg:'static/avatar.jpg'
         }
     },
     props:{
         size:String,
         imgSrc:String
+    },
+    methods: {
+        onAvatarTap($event){
+            this.$emit('onAvatarTap',$event);
+        }
     }
 }
 </script>
