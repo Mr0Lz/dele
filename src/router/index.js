@@ -9,7 +9,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: today
+      redirect: '/today'//默认首页:重定向至today页面
     },
     {
       path: '/today',
