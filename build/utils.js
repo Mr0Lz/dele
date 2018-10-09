@@ -47,7 +47,11 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
-        fallback: 'vue-style-loader'
+        fallback: 'vue-style-loader',
+        //在.vue文件中动态绑定文件src使用变量赋值 是不会被加载器处理的
+        //解决1. 使用 import defaultImg from '文件url'  ;  才能使用
+        //2. 修改utils文件,ExtractTextPlugin配置: publicPath: '../../',然后静态文件放在static目录下
+        publicPath: '../../'
       })
     } else {
       return ['vue-style-loader'].concat(loaders)
