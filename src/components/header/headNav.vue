@@ -21,13 +21,8 @@
 import headMore from '../SVGIconComponents/header_more_svg'
 
 export default {
-    props:[],
+    props:['title'],
     name: 'headNav',
-    data(){
-        return {
-            title:"得乐商城"
-        }
-    },
     components:{
         headMore
     }

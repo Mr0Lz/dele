@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-    name:"homeFootBar",
+    name:'homeFootBar',
     methods:{
         goPath(path){
             this.$router.push(path);
