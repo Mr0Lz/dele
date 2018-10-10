@@ -18,9 +18,9 @@ $col5CB531:#5CB531;
     background-repeat: no-repeat;
 }
 
-@mixin borderRadius($r) {
+@mixin borderRadius($r:0.12rem) {
     -webkit-border-radius: $r; 
-    border-radius: $r
+    border-radius: $r;
 }
 
 @mixin absolute($t,$l){
