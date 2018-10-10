@@ -63,6 +63,9 @@ export default {
   }
 }
 
+.swiper-container-horizontal>.swiper-pagination-bullets{
+    bottom:-8%;
+  }
 
 
 </style>
