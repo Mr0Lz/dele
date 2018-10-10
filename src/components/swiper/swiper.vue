@@ -49,14 +49,14 @@ export default {
 @import '../../style/mixin';
 
 .swiper-container {
-  @include wh(3.2rem,1.7rem);
+  @include wh(3.2rem);
+  min-height:1.7rem;
   .swiper-slide{
-    @include wh(3.2rem,1.7rem);
+    @include wh(3.2rem);
     @include borderRadius();
     overflow: hidden;  
   }
   .swiper-pagination {
-    bottom:-8%;
     .swiper-pagination-bullet-active {
         background: #000;
       }
@@ -64,7 +64,7 @@ export default {
 }
 
 .swiper-container-horizontal>.swiper-pagination-bullets{
-    bottom:-8%;
+    bottom:-8% !important;
   }
 
 
