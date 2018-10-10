@@ -38,6 +38,7 @@ export default {
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 1;
     background: $colFFF;
     @include flex(center,center);
     @include wh(100%,0.49rem);
