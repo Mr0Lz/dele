@@ -29,9 +29,6 @@ export default {
         @include borderRadius(50%);
         overflow: hidden;
         background: $colCCC;
-        img {
-            @include wh(100%,100%);
-        }
     }
     .avatar-s{
         @include wh(0.3rem,0.3rem);

@@ -54,10 +54,6 @@ export default {
     @include wh(3.2rem,1.7rem);
     @include borderRadius();
     overflow: hidden;  
-    img{
-      @include wh(100%,100%);
-      max-width: 100%;
-    }
   }
   .swiper-pagination {
     bottom:-8%;

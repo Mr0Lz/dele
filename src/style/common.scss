@@ -42,6 +42,11 @@ textarea{
     zoom:1;
 }
 
+img{
+    width: 100%;
+    max-width: 100%;
+}
+
 .clear:after{
     content:'';
     display: block;

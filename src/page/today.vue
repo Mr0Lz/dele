@@ -19,6 +19,16 @@
                 </div>
 
             </div>
+            <!-- 商品列表 -->
+            <div class="commodity-list">
+                
+                <div class="commodity-item">
+                    <img src="static/image2.jpg" alt="">
+                    <div class="commodity-name">芒果酸奶</div>
+                    <div class="commodity-price">¥12.00</div>
+                </div>
+
+            </div>
 
         </section>
         <home-foot-bar></home-foot-bar>
@@ -56,5 +66,8 @@ export default {
 <style lang="scss" scoped>
     .today-avatar,.swiper-box{
        margin-top: 0.08rem;
+    }
+    .commodity-list{
+        margin-top: 0.3rem;
     }
 </style>
