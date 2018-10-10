@@ -1,9 +1,9 @@
 <template>
     <section >
         <head-nav :title="title"></head-nav>
-        <section class="today-container m-t m-l">
+        <section class="today-container m-t ">
             <!-- 标题 -->
-            <div class="today-title h-1 m-r">
+            <div class="today-title h-1 m-r m-l">
                 今日推荐
                 <div class="today-avatar right">
                     <avatar size="s" imgSrc="static/avatar.jpg" @onAvatarTap="onAvatarTap"></avatar>
@@ -11,9 +11,12 @@
             </div>
             <!-- 轮播 -->
             <div class="today-swiper m-t">
-                
-                <div class="h-2">明星单品</div>
 
+                <div class="h-2 m-l">明星单品</div>
+
+                <div class="swiper-box">
+                    <swiper></swiper>
+                </div>
 
             </div>
 
@@ -21,10 +24,12 @@
         <home-foot-bar></home-foot-bar>
     </section>
 </template>
+
 <script>
 import headNav from './../components/header/headNav'
 import homeFootBar from './../components/footer/homeFootBar'
 import avatar from './../components/avatar/avatar'
+import swiper from './../components/swiper/swiper'
 
 export default {
     name: 'today',
@@ -36,7 +41,8 @@ export default {
     components: {
         headNav,
         homeFootBar,
-        avatar
+        avatar,
+        swiper
     },
     methods: {
         onAvatarTap(e){
@@ -46,8 +52,9 @@ export default {
     }
 }
 </script>
+
 <style lang="scss" scoped>
-    .today-avatar{
+    .today-avatar,.swiper-box{
        margin-top: 0.08rem;
     }
 </style>
