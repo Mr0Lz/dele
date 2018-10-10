@@ -3,7 +3,7 @@
         <head-nav :title="title"></head-nav>
         <section class="today-container m-t ">
             <!-- 标题 -->
-            <div class="today-title h-1 m-r m-l">
+            <div class="h-1 m-r m-l">
                 今日推荐
                 <div class="today-avatar right">
                     <avatar size="s" imgSrc="static/avatar.jpg" @onAvatarTap="onAvatarTap"></avatar>
@@ -22,9 +22,11 @@
             <!-- 商品列表 -->
             <div class="commodity-list">
                 
-                <div class="commodity-item">
-                    <img src="static/image2.jpg" alt="">
-                    <div class="commodity-name">芒果酸奶</div>
+                <div class="commodity-item m-l">
+                    <div class="commodity-img">
+                        <img src="static/mangguo.png" alt="">
+                    </div>
+                    <div class="h-2">芒果酸奶</div>
                     <div class="commodity-price">¥12.00</div>
                 </div>
 
@@ -45,7 +47,15 @@ export default {
     name: 'today',
     data(){
         return {
-            title:'得乐商城'
+            title:'得乐商城',
+            commodityList:[
+                {
+                    id:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                }
+            ]
         }
     },
     components: {
@@ -64,10 +74,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .today-avatar,.swiper-box{
+    @import '../style/mixin.scss';
+
+    .today-container {//用于填补homeFootBar的高度
+        padding-bottom: 0.8rem;
+    }
+
+    .today-avatar,.swiper-box,.commodity-price {
        margin-top: 0.08rem;
     }
-    .commodity-list{
+
+    .commodity-list {
         margin-top: 0.3rem;
+        .commodity-item {
+            @include wh(1.43rem,1.9rem);
+            .commodity-img {
+                @include wh(1.4rem,1.4rem); 
+                @include borderRadius();
+                margin-bottom: 0.08rem;
+            }
+            .commodity-price {             
+                @include font(0.12rem,$colE7290F);
+            }
+        }
     }
 </style>
