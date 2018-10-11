@@ -8,6 +8,31 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+const imgLoader = {
+  loader: 'img-loader', //使用img-loader压缩图片
+  options: {
+    plugins: [
+      require('imagemin-gifsicle')({
+        interlaced: false
+      }),
+      require('imagemin-mozjpeg')({
+        progressive: true,
+        arithmetic: false
+      }),
+      require('imagemin-pngquant')({
+        floyd: 0.5,
+        speed: 2
+      }),
+      require('imagemin-svgo')({
+        plugins: [
+          { removeTitle: true },
+          { convertPathData: false }
+        ]
+      })
+    ]
+  }
+}
+
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
@@ -53,17 +78,26 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        exclude:[resolve('src/images/svgSpriteIcon')],//指定不需要处理的路径,解决与svg-sprite-loader 的冲突
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
+        exclude:[resolve('src/images/svgSpriteIcon')],//指定不需要处理的路径,解决与svg-sprite-loader 的冲突                              
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: utils.assetsPath('img/[name].[hash:7].[ext]')
+            }
+          },
+          imgLoader
+        ]
+
       },
       {
         test: /\.svg$/,
-        loader: 'svg-sprite-loader',
-        include: [resolve('src/images/svgSpriteIcon')]//指定需要处理的路径,解决与url-loader 的冲突
+        include: [resolve('src/images/svgSpriteIcon')],//指定需要处理的路径,解决与url-loader 的冲突
+        use: [
+          {loader: 'svg-sprite-loader'},
+          imgLoader 
+        ]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,

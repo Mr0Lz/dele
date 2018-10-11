@@ -40,6 +40,10 @@ export default {
         autoHeight: true, //高度随内容变化
         freeMode : false, //惯性滑动且不会贴合
         effect : 'coverflow',//默认为"slide"（位移切换），可设置为"fade"（淡入）"cube"（方块）"coverflow"（3d流）"flip"（3d翻转）。
+        onImagesReady: function(swiper){
+          //swiper 图片太大 加载延迟 考虑先隐藏 加载好后再显示
+          console.log('事件触发了;');
+        }
       });
   }
 }
