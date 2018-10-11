@@ -57,10 +57,12 @@ export default {
         effect : 'coverflow',//默认为"slide"（位移切换），可设置为"fade"（淡入）"cube"（方块）"coverflow"（3d流）"flip"（3d翻转）。
         onInit: function(swiper){
               //Swiper初始化了
+          swiper.stopAutoplay(); 
         },
         onImagesReady: function(swiper){
           //swiper 图片太大 加载延迟 考虑先隐藏 加载好后再显示
-          that.imgReady=true;        
+          that.imgReady=true;
+          swiper.startAutoplay();        
         },
         
       });
