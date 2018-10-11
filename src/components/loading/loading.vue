@@ -1,6 +1,6 @@
 <template>
-        <transition name="loading"  appear @after-enter="enter" @after-leave="afterLeave">
-            <img :src="loadIcon" class="loading-rotate">  
+        <transition name="loading"  appear @after-enter="afterEnter" @after-leave="afterLeave">
+            <img :src="loadIcon"  :class=" { 'loading-rotate' : isRotate } ">  
       </transition>
 </template>
 
@@ -11,11 +11,13 @@ export default {
     name: 'loading',
     data(){
         return {
-            loadIcon
+            loadIcon,
+            isRotate:false
         }
     },
     methods: {
-        enter(el){
+        afterEnter(el){
+            this.isRotate=true;
         },
         afterLeave(el){
         }
@@ -32,7 +34,7 @@ export default {
     animation: loading-in 0.5s reverse;
 }
 .loading-rotate{
-    animation: loading-rotate 0.6s infinite 0.5s linear;
+    animation: loading-rotate 0.5s infinite 0.5s linear;
 }
 
 @keyframes loading-in {
