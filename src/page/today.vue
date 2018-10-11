@@ -11,23 +11,18 @@
             </div>
             <!-- 轮播 -->
             <div class="today-swiper m-t">
-
                 <div class="h-2 m-l">明星单品</div>
-
-                <div class="swiper-box">
-                    <swiper></swiper>
-                </div>
-
+                <swiper class="swiper-box"></swiper>
             </div>
             <!-- 商品列表 -->
             <div class="commodity-list">
                 
-                <div class="commodity-item m-l">
+                <div class="commodity-item m-l" v-for="item in commodityList" :key="item.id">
                     <div class="commodity-img">
-                        <img src="static/mangguo.png" alt="">
+                        <img :src="item.imgUrl" alt="">
                     </div>
-                    <div class="h-2">芒果酸奶</div>
-                    <div class="commodity-price">¥12.00</div>
+                    <div class="h-2">{{item.commodityName}}</div>
+                    <div class="commodity-price">¥{{item.commodityPrice}}</div>
                 </div>
 
             </div>
@@ -51,6 +46,24 @@ export default {
             commodityList:[
                 {
                     id:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                 {
+                    id:'2',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                 {
+                    id:'3',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                 {
+                    id:'4',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
@@ -87,6 +100,7 @@ export default {
     .commodity-list {
         margin-top: 0.3rem;
         .commodity-item {
+            display: inline-block;
             @include wh(1.43rem,1.9rem);
             .commodity-img {
                 @include wh(1.4rem,1.4rem); 
