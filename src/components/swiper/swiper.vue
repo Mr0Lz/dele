@@ -2,13 +2,13 @@
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="static/image1.png" alt="">
+          <img src="../../images/image1.png" alt="">
         </div>
         <div class="swiper-slide">
-          <img src="static/image2.jpg" alt="">
+          <img src="../../images/image2.jpg" alt="">
         </div>
         <div class="swiper-slide">
-          <img src="static/image3.png" alt="">
+          <img :src="defualtImg" alt="">
         </div>
       </div>
       <!-- 如果需要分页器 -->
@@ -24,9 +24,14 @@
 <script>
 import '../../style/swiper-3.4.2.min.css'
 import '../../plugins/swiper-3.4.2.min.js'
+import defualtImg from '../../images/image3.png'
+
 
 export default {
   name: 'swiper',
+  data:{
+    defualtImg:defualtImg
+  },
   mounted () {
       new Swiper('.swiper-container',{
         autoplay: 5000,//自动播放
