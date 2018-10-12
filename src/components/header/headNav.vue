@@ -17,7 +17,6 @@
     </header>
 </template>
 <script>
-//javascript:(function(e){e.setAttribute("src","http://192.168.0.65:3000/target/target-script-min.js#anonymous");document.getElementsByTagName("body")[0].appendChild(e);})(document.createElement("script"));void(0);
 import headMore from '../SVGIconComponents/header_more_svg'
 
 export default {

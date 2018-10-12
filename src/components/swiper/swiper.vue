@@ -1,5 +1,5 @@
 <template>
-    <section class="swiper-template">
+    <section class="swiper-template margin">
 
       <loading class="swiper-img-load" v-if="!imgReady"></loading>
 
@@ -76,23 +76,20 @@ export default {
 <style  lang="scss">
 @import '../../style/mixin';
 
-  .swiper-template {
+.swiper-template {
     position: relative;
+    @include wh(86%);
     .swiper-img-load{
       @include wh(0.24rem);
       @include absolute(50%,50%);
       margin-left:-0.12rem;
       margin-top:-0.12rem;
     }
-  }
-
+  
   .swiper-container {
-    @include wh(3.2rem);
-    min-height:1.7rem;
     @include borderRadius();
     overflow: hidden;
     .swiper-slide{
-      @include wh(3.2rem);
       @include borderRadius();
       overflow: hidden;  
     }
@@ -109,5 +106,5 @@ export default {
   .swiper-container-horizontal>.swiper-pagination-bullets{
       bottom:-8% !important;
   }
-
+}
 </style>
