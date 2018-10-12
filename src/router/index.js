@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import today from '@/page/today'
+import today from '@/page/today' //首页,今日推荐页面
+import personal from '@/page/personal' //个人中心页面
+
 
 Vue.use(Router)
 
@@ -24,7 +26,7 @@ export default new Router({
     {
       path: '/personal',
       name: 'personal',
-      component: today
+      component: personal
     }
   ]
 })

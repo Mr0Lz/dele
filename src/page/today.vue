@@ -1,5 +1,5 @@
 <template>
-    <section >
+    <section>
         <head-nav :title="title"></head-nav>
         <section class="today-container m-t ">
             <!-- 标题 -->

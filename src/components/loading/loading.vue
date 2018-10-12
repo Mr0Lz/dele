@@ -31,10 +31,10 @@ export default {
     animation: loading-in 0.5s;
 }
 .loading-leave-active {
-    animation: loading-in 0.5s reverse;
+    animation: loading-in 0.5s;
 }
 .loading-rotate{
-    animation: loading-rotate 0.5s infinite 0.5s linear;
+    animation: loading-rotate 0.5s infinite ease-out;
 }
 
 @keyframes loading-in {

@@ -26,7 +26,6 @@ export default {
     methods:{
         goPath(path){
             this.$router.push(path);
-            console.log(this.$route.path.indexOf('today'));
         }
     }
 }
