@@ -17,7 +17,7 @@
             <!-- 商品列表 -->
             <div class="commodity-list">
                 
-                <div class="commodity-item m-l" v-for="item in commodityList" :key="item.id">
+                <div class="commodity-item m-l" @click="selectCommodity($event,item.commodityId)" v-for="item in commodityList" :key="item.commodityId">
                     <div class="commodity-img">
                         <img :src="item.imgUrl" alt="">
                     </div>
@@ -45,25 +45,25 @@ export default {
             title:'得乐商城',
             commodityList:[
                 {
-                    id:'1',
+                    commodityId:'1',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 },
                  {
-                    id:'2',
+                    commodityId:'2',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 },
                  {
-                    id:'3',
+                    commodityId:'3',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 },
                  {
-                    id:'4',
+                    commodityId:'4',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
@@ -81,6 +81,9 @@ export default {
         onAvatarTap(e){
             console.log('点击头像',e.target);
             alert('点击头像');
+        },
+        selectCommodity($event,commodityId){
+            console.log($event,commodityId);
         }
     }
 }
