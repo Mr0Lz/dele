@@ -5,19 +5,21 @@
 
         <section class="personal-container">
 
-            <!-- 头像 -->
-            <div class="personal-avatar">
-                <avatar size="m" ></avatar>
-                <div class="personal-info">
-                    <strong class="personal-name">一个帅哥</strong>
-                    <span class="personal-authorize"></span>
+            <!-- 头像和个人信息 -->
+            <div class="personal-avatar clear">
+                <avatar size="m" class="left m-l m-r"></avatar>
+                <div class="personal-info left">
+                    <p class="personal-name">Pro9ice</p>
+                    <p class="personal-authorize">已绑定微信</p>
                 </div>
-                <router-link to="xxx" class="btn1">资料设置</router-link>
-                <router-link to="xxx" class="btn2">资料设置</router-link>
-                <router-link to="xxx" class="btn3">资料设置</router-link>
-                <router-link to="xxx" class="btn4">资料设置</router-link>
-                <router-link to="xxx" class="btn5">资料设置</router-link>
+                <router-link to="xxx" class="personal-setting right m-r">资料设置</router-link>
             </div>
+
+            <!-- 我的订单  -->
+            <div class="personal-order m-t-10">
+
+            </div>
+
 
         </section>
 
@@ -53,23 +55,35 @@ export default {
 <style lang="scss" scoped>
     @import "../style/mixin";
 
-    .btn1{
-        @include btn($colFFF,$col7F7F7F,$border:0.01rem solid $col7F7F7F,$w:0.58rem,$h:0.22rem,$lh:0.22rem,$fsz:0.12rem,$r:0.04rem);
-    }
-
-    .btn2{
-        @include btn();
-    }
-
-    .btn3{
-            @include btn();
+    .personal{
+        min-height: 6.67rem;
+        background: $colF2;
+        @include wh(100%,300px);
+        .personal-avatar {
+            background: $colFFF;
+            padding: 0.2rem 0;
+            .personal-info{
+                @include font(0.2rem);
+                .personal-name{
+                    margin-top: 0.05rem;
+                    margin-bottom: 0.05rem;
+                }
+                .personal-authorize{
+                    @include font(0.12rem,$colCCC);
+                }
+            }
+            .personal-setting{
+                margin-top: 0.18rem;
+                @include btn($bgc:$colFFF,$c:$col7F7F7F,$border:0.01rem solid $col7F7F7F,$w:0.6rem,$h:0.24rem,$lh:0.24rem,$fsz:0.12rem,$r:0.03rem);
+            }
+        }
+        
+        .personal-order{
+            background: $colFFF;
+            height: 1.37rem;
         }
 
-    .btn4{
-        @include btn();
+
     }
 
-    .btn5{
-        @include btn();
-    }
 </style>
