@@ -7,8 +7,4 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.head-more{  
-    width:0.32rem;
-    height: 0.32rem;
-}
 </style>

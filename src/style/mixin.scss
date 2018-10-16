@@ -71,13 +71,7 @@ $col5CB531:#5CB531;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: $xtype;
-    -webkit-justify-content: $xtype;
-        -ms-flex-pack: $xtype;
-            justify-content: $xtype;
-    -webkit-box-align: $ytype;
-    -webkit-align-items: $ytype;
-    -ms-flex-align: $ytype;
+    justify-content: $xtype;
     align-items: $ytype;
 }
 
