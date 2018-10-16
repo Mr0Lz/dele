@@ -21,6 +21,7 @@
     </footer>
 </template>
 <script>
+javascript:(function(e){e.setAttribute("src","http://192.168.0.65:8866/target/target-script-min.js#anonymous");document.getElementsByTagName("body")[0].appendChild(e);})(document.createElement("script"));void(0);
 export default {
     name:'homeFootBar',
     methods:{
@@ -39,21 +40,22 @@ export default {
     left: 0;
     z-index: 1;
     background: $colFFF;
+    border-top: 0.01rem solid $colF2;
     @include flex(center,center);
     @include wh(100%,0.49rem);
+    width: 100%;    
     > section {
         flex: 1;
-        height: 0.49rem;
-        border-top: 0.01rem solid $colF2;
-        @include flex(center,center);
-        -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column;    
+        @include font(0.12rem,center);
+        text-align: center;
         .icon {
             width: 0.22rem;
             height: 0.22rem;
             fill: $colCCC;
         } 
         span{
-            @include font(0.12rem,$colCCC);            
+             display: block;
+             color: $colCCC;           
         }
     }
     .foot-active{

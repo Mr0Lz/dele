@@ -59,7 +59,7 @@ $col5CB531:#5CB531;
             transform: translateX(-50%);
 }
 
-@mixin font($size,$c,$align:left,$line-height:normal){
+@mixin font($size,$c:$col191919,$align:left,$line-height:normal){
     font-size: $size;
     line-height:$line-height;
     text-align: $align;
