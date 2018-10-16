@@ -21,7 +21,6 @@
     </footer>
 </template>
 <script>
-javascript:(function(e){e.setAttribute("src","http://192.168.0.65:8866/target/target-script-min.js#anonymous");document.getElementsByTagName("body")[0].appendChild(e);})(document.createElement("script"));void(0);
 export default {
     name:'homeFootBar',
     methods:{
