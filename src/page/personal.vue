@@ -20,6 +20,14 @@
 
             </div>
 
+            <!-- 我的功能链接  -->
+            <div class="personal-link m-t-10">
+                <link-group text="111" href="/today" ></link-group>
+            </div>
+            
+            <div class="personal-link m-t-10">
+                <link-group text="111" href="/today" ></link-group>
+            </div>
 
         </section>
 
@@ -33,6 +41,7 @@ import headNav from '@/components/header/headNav'
 import homeFootBar from '@/components/footer/homeFootBar'
 import msgBubble from '@/components/msgBubble/msgBubble'
 import avatar from '@/components/avatar/avatar'
+import linkGroup from '@/components/linkGroup/linkGroup'
 
 export default {
     name: 'peronal',
@@ -45,7 +54,8 @@ export default {
         headNav,
         homeFootBar,
         msgBubble,
-        avatar
+        avatar,
+        linkGroup
     }
 }
 
