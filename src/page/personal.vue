@@ -46,7 +46,9 @@ import msgBubble from '@/components/msgBubble/msgBubble'
 import avatar from '@/components/avatar/avatar'
 import linkGroup from '@/components/linkGroup/linkGroup'
 import payment from '@/images/order_pending_payment.png'
-
+import delivery from '@/images/order_pending_delivery.png'
+import receive from '@/images/order_pending_receive.png'
+import comment from '@/images/order_pending_comment.png'
 
 export default {
     name: 'peronal',
@@ -80,25 +82,20 @@ export default {
                 icon: payment
             },
              {
-                text: '待付款',
+                text: '待发货',
                 href: '/',
-                icon: payment
+                icon: delivery
             },
              {
-                text: '待付款',
+                text: '待收货',
                 href: '/',
-                icon: payment
+                icon: receive
             },
              {
-                text: '待付款',
+                text: '待评价',
                 href: '/',
-                icon: payment
-            },
-             {
-                text: '待付款',
-                href: '/',
-                icon: payment
-            },
+                icon: comment
+            }
             ]
         }
     },
