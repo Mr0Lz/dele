@@ -1,8 +1,11 @@
 <template>
 
     <div class="link-group-template clear">
-        <router-link class="link-item" :to="linkHref">{{linkText}} <span class="right">></span></router-link>
-        <router-link class="link-item link-boder" :to="linkHref">{{linkText}} <span class="right">></span></router-link>
+        <router-link :class=" index==0 ? 'link-item' : 'link-item link-border' "  :to="value.href"  v-for="(value,index) in item" :key="index" >
+            {{value.text}} 
+            <span class="right">></span>
+        </router-link>
+        <slot name="order-manage"></slot>
     </div>
 
 </template>
@@ -11,16 +14,7 @@
 export default {
     name: 'linkGroup',
     props: {
-        href:String,
-        text:String
-    },
-    computed: {
-        linkHref(){
-            return this.href.trim()||"点击文本";
-        },
-        linkText(){
-            return this.text.trim()||"/";
-        }
+        item:Array
     }
 }
 </script>
@@ -37,9 +31,12 @@ export default {
             display: block;
             @include wh(3.2rem,0.52rem);
             line-height: 0.52rem;
+            span{
+                color: $col7F7F7F;
+            }
         }
-        .link-boder{
-            border-top:0.01rem $colF2 solid; 
+        .link-border{
+            border-top:0.01rem $colF2 solid;
         }
     }
 

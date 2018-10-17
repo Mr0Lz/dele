@@ -12,21 +12,24 @@
                     <p class="personal-name">Pro9ice</p>
                     <p class="personal-authorize">已绑定微信</p>
                 </div>
-                <router-link to="xxx" class="personal-setting right m-r">资料设置</router-link>
+                <router-link  to="xxx" class="personal-setting right m-r">资料设置</router-link>
             </div>
 
             <!-- 我的订单  -->
-            <div class="personal-order m-t-10">
-
+            <div class="personal-order m-t-10" >
+                <link-group :item="personalOrder" >
+                    <div class="orde-manage" slot="order-manage">
+                        <router-link class="manage-item" :to="item.href" :key="index" v-for="(item ,index) in orderManage" >
+                        <img :src="item.icon" alt="">
+                            {{item.text}}
+                        </router-link>
+                    </div>
+                </link-group>
             </div>
 
             <!-- 我的功能链接  -->
-            <div class="personal-link m-t-10">
-                <link-group text="111" href="/today" ></link-group>
-            </div>
-            
-            <div class="personal-link m-t-10">
-                <link-group text="111" href="/today" ></link-group>
+            <div class="personal-link m-t-10" v-for=" (item,index) in linkGroupArr" :key="index">
+                <link-group :item="item" ></link-group>
             </div>
 
         </section>
@@ -42,12 +45,61 @@ import homeFootBar from '@/components/footer/homeFootBar'
 import msgBubble from '@/components/msgBubble/msgBubble'
 import avatar from '@/components/avatar/avatar'
 import linkGroup from '@/components/linkGroup/linkGroup'
+import payment from '@/images/order_pending_payment.png'
+
 
 export default {
     name: 'peronal',
     data(){
         return {
-            msg:"1"
+            linkGroupArr:[
+                [{
+                    text: '地址管理',
+                    href: '/'
+                 },{
+                    text: '企业订购',
+                    href: '/'
+                   }
+                ],[{
+                    text: '联系客服',
+                    href: '/'
+                 },{
+                    text: '关于得乐',
+                    href: '/'
+                   }
+                   ]
+            ],
+            personalOrder:[{
+                text: '我的订单',
+                href: '/'
+            }],
+            orderManage: [
+              {
+                text: '待付款',
+                href: '/',
+                icon: payment
+            },
+             {
+                text: '待付款',
+                href: '/',
+                icon: payment
+            },
+             {
+                text: '待付款',
+                href: '/',
+                icon: payment
+            },
+             {
+                text: '待付款',
+                href: '/',
+                icon: payment
+            },
+             {
+                text: '待付款',
+                href: '/',
+                icon: payment
+            },
+            ]
         }
     },
     components:{
@@ -68,7 +120,6 @@ export default {
     .personal{
         min-height: 6.67rem;
         background: $colF2;
-        @include wh(100%,300px);
         .personal-avatar {
             background: $colFFF;
             padding: 0.2rem 0;
@@ -90,7 +141,21 @@ export default {
         
         .personal-order{
             background: $colFFF;
-            height: 1.37rem;
+            .orde-manage{
+                border-top:0.01rem $colF2 solid;
+                width: 3.2rem;
+                padding: 0.14rem 0;                
+                @include flex(center,center);
+                .manage-item{
+                    display: block;
+                    flex: 1;
+                    @include font(0.12rem,$col7F7F7F,center);
+                    img{
+                        margin:0 auto 0.05rem auto;
+                        @include wh(0.32rem,0.32rem);
+                    }
+                }
+            }
         }
 
 
