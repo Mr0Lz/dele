@@ -22,6 +22,7 @@
                         <router-link class="manage-item" :to="item.href" :key="index" v-for="(item ,index) in orderManage" >
                         <img :src="item.icon" alt="">
                             {{item.text}}
+                        <msg-bubble></msg-bubble>
                         </router-link>
                     </div>
                 </link-group>
@@ -104,7 +105,8 @@ export default {
         homeFootBar,
         msgBubble,
         avatar,
-        linkGroup
+        linkGroup,
+        msgBubble
     }
 }
 
@@ -144,6 +146,7 @@ export default {
                 padding: 0.14rem 0;                
                 @include flex(center,center);
                 .manage-item{
+                    position: relative;
                     display: block;
                     flex: 1;
                     @include font(0.12rem,$col7F7F7F,center);

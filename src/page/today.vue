@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="today">
         <head-nav :title="title"></head-nav>
         <section class="today-container m-t ">
             <!-- 标题 -->
@@ -92,26 +92,28 @@ export default {
 <style lang="scss" scoped>
     @import '../style/mixin.scss';
 
-    .today-container {//用于填补homeFootBar的高度
-        padding-bottom: 0.8rem;
-    }
+    .today{
+        .today-container {//用于填补homeFootBar的高度
+            padding-bottom: 0.8rem;
+        }
 
-    .today-avatar,.swiper-box,.commodity-price {
-       margin-top: 0.08rem;
-    }
+        .today-avatar,.swiper-box,.commodity-price {
+        margin-top: 0.08rem;
+        }
 
-    .commodity-list {
-        margin-top: 0.3rem;
-        .commodity-item {
-            display: inline-block;
-            @include wh(1.43rem,1.9rem);
-            .commodity-img {
-                @include wh(1.4rem,1.4rem); 
-                @include borderRadius();
-                margin-bottom: 0.08rem;
-            }
-            .commodity-price {             
-                @include font(0.12rem,$colE7290F);
+        .commodity-list {
+            margin-top: 0.3rem;
+            .commodity-item {
+                display: inline-block;
+                @include wh(1.43rem,1.9rem);
+                .commodity-img {
+                    @include wh(1.4rem,1.4rem); 
+                    @include borderRadius();
+                    margin-bottom: 0.08rem;
+                }
+                .commodity-price {             
+                    @include font(0.12rem,$colE7290F);
+                }
             }
         }
     }

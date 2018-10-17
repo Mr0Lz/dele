@@ -6,7 +6,7 @@
             </svg>
             <span>今日</span>
         </section>
-        <section :class="$route.path.indexOf('order') !== -1 ? 'foot-active' : '' "  @click="goPath('/order')">
+        <section :class="$route.path.indexOf('shoppingBag') !== -1 ? 'foot-active' : '' "  @click="goPath('/shoppingBag')">
             <svg class="icon">
                 <use xlink:href="#bag"></use>
             </svg>
