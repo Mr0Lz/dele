@@ -1,6 +1,6 @@
 <template>
 
-    <section class="personal">
+    <section class="personal page-container">
         <head-nav title="我的得乐"></head-nav>
 
         <section class="personal-container">
@@ -117,8 +117,7 @@ export default {
     @import "../style/mixin";
 
     .personal{
-        min-height: 6.67rem;
-        background: $colF2;
+         background: $colF2;
         .personal-avatar {
             background: $colFFF;
             padding: 0.2rem 0;
