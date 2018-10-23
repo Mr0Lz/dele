@@ -65,7 +65,7 @@ export default {
         right: 0.1rem;     
         .other-icon{
             width:0.22rem;
-            height: 0.4rem;
+            height: 0.44rem;
         }
 
     }
