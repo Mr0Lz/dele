@@ -27,7 +27,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {},//前后端分离,本地开发api用http://127.0.0.1:8080/;线上用:http://dele-server-dele-server.1d35.starter-us-east-1.openshiftapps.com/
 
     // Various Dev Server settings
     //host: '0.0.0.0', // can be overwritten by process.env.HOST
