@@ -1,5 +1,5 @@
 <template>
-    <section class="swiper-template margin">
+    <section class="swiper margin">
 
       <loading class="swiper-img-load" v-if="!imgReady"></loading>
 
@@ -76,7 +76,7 @@ export default {
 <style  lang="scss">
 @import '../../style/mixin';
 
-.swiper-template {
+.swiper {
     position: relative;
     @include wh(86%);
     .swiper-img-load{

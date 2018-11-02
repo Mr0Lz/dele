@@ -1,9 +1,10 @@
 <template>
     
-    <section class="slide-delete-template" @touchstart.stop="touchstart"  @touchmove.stop="touchmove"  @touchend.stop="touchend">
+    <section class="slide-delete" @touchstart.stop="touchstart"  @touchmove.stop="touchmove"  @touchend.stop="touchend">
         <div :class=" ['slide-container']">
             <slot name="slide-container"></slot>
-        </div><div :class=" ['remove-item']">删除</div>
+        </div>
+        <div :class=" ['remove-item']" @click="remove" >删除</div>
     </section>
 
 </template>
@@ -13,36 +14,45 @@ import { removeClass,addClass } from "@/config/mUtils"
 
 export default {
     name:'slideDelete',
+    props:{
+        i:Number
+    },
     data(){
         return {
             startX:null,
             endX:null,
-            
+            index:this.i
         }
     },
     methods:{
+        remove($event){
+           let slide = $event.currentTarget.parentNode;
+           let container = slide.parentNode;
+        //    container.removeChild(slide);
+           this.$emit("removeCommodity",container,slide,this.index);
+        },
         reposition(){
             let items=document.querySelectorAll(".slide-active");
             for(let i=0;i<items.length;i++){
                 removeClass(items[i],"slide-active");
             }
         },
-        touchstart(event){
-           this.startX=event.touches[0].clientX;
-           if(event.target.className.indexOf("remove-item")==-1){
+        touchstart($event){
+           this.startX=$event.touches[0].clientX;
+           if($event.target.className.indexOf("remove-item")==-1){
                this.reposition();
            }
         },
-        touchmove(event){
-            this.endX=event.touches[0].clientX;
+        touchmove($event){
+            this.endX=$event.touches[0].clientX;
         },
-        touchend(event){
+        touchend($event){
             if(this.endX!==null){
-                if(this.endX-this.startX>0&&Math.abs(this.endX-this.startX)>70){
+                if(this.endX-this.startX>0&&Math.abs(this.endX-this.startX)>50){
                     console.log("左滑");
-                }else if(this.endX-this.startX<0&&Math.abs(this.endX-this.startX)>70){
+                }else if(this.endX-this.startX<0&&Math.abs(this.endX-this.startX)>50){
                     console.log("右滑");
-                    let slide=event.currentTarget.children,item=slide[0],remove=slide[1];
+                    let slide=$event.currentTarget.children,item=slide[0],remove=slide[1];
                     addClass(remove,"slide-active");
                     addClass(item,"slide-active");
                 }
@@ -58,7 +68,7 @@ export default {
 <style lang="scss">
     @import "../../style/mixin";
 
-    .slide-delete-template{
+    .slide-delete{
         position: relative;
         overflow: hidden;
         .slide-container{
