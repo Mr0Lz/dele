@@ -72,7 +72,6 @@ export default {
         position: relative;
         overflow: hidden;
         .slide-container{
-            transition: all 0.3s;
             position: relative;
             z-index: 1;
             background-color:$colFFF;
@@ -92,10 +91,13 @@ export default {
             transform: scale(0.8); 
         }
         .slide-container,.remove-item{
-            transition: all 0.3s;
+            transition: transform 0.3s;
+            backface-visibility: hidden;//去除文字过渡引起抖动
+            -webkit-font-smoothing: subpixel-antialiased;//去除文字过渡引起模糊
         }
 
         .slide-active.slide-container{
+            //transform: translate3D(-30%,0,0) scale(1);
             transform: translateX(-30%) scale(1);
         }
         .slide-active.remove-item{

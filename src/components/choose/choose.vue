@@ -53,7 +53,6 @@ export default {
             }
             .choose-icon,.choose-act-icon{
                 display: inline-block;
-                transition: all 0.3s;
                 position: absolute;
                 @include wh(0.18rem,0.18rem);
                 top: 0;
