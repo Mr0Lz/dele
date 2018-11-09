@@ -10,16 +10,17 @@
 
                 <slide-delete @removeCommodity="removeCommodity" class="commodity-item" v-for=" (item,index) in commodityArr"  :i="index"  :key="index">
                     <div slot="slide-container"   class="m-l">
-                        <choose class="choose-commodity" inputName="choose"  type="checkbox" >
-                            <div class="choose-container" slot="choose-container" >
+                        <choose class="choose-commodity" inputName="choose"  type="checkbox" ></choose>
+                            <div class="commodity-container" @click="al">
+                                <router-link to="/">
                                 <img  class="commodity-img left" :src="item.imgUrl" alt="">
                                 <ul class="left">
                                     <li class="h-2 commodity-name">{{item.commodityName}}</li>
                                     <li class="commodity-details">180g/盒; 五盒/套</li>
                                     <li class="commodity-price">¥57.00</li>
                                 </ul>
+                                </router-link>
                             </div>
-                        </choose>
                     </div>
                 </slide-delete>
 
@@ -85,10 +86,13 @@ export default {
         choose
     },
     methods:{
+        al(){
+            alert(2);
+        },
         removeCommodity(container,slide,index){
             console.log(container,slide,index);
             this.commodityArr.splice(index,1);
-        },
+        }
     }
 }
 </script>
@@ -107,8 +111,9 @@ export default {
                 }
                 .choose-commodity{
                     height: 1.1rem;
+                    float: left;
                 }
-                .choose-container{
+                .commodity-container{
                     margin-left: 0.33rem;
                     padding: 0.15rem 0;
                     overflow: hidden;

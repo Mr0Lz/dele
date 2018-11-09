@@ -1,10 +1,10 @@
 <template>
     
-    <section class="slide-delete" @touchstart.stop="touchstart"  @touchmove.stop="touchmove"  @touchend.stop="touchend">
-        <div :class=" ['slide-container']">
+    <section class="slide-delete" >
+        <div ref="container" :class=" ['slide-container']"  @touchstart.stop="touchstart"  @touchmove.stop="touchmove"  @touchend.stop="touchend">
             <slot name="slide-container"></slot>
         </div>
-        <div :class=" ['remove-item']" @click="remove" >删除</div>
+        <div ref="remove" :class=" ['remove-item']" @click="remove" >删除</div>
     </section>
 
 </template>
@@ -21,7 +21,8 @@ export default {
         return {
             startX:null,
             endX:null,
-            index:this.i
+            index:this.i,
+            flage:false
         }
     },
     methods:{
@@ -36,12 +37,17 @@ export default {
             for(let i=0;i<items.length;i++){
                 removeClass(items[i],"slide-active");
             }
+            this.flage=false;
         },
         touchstart($event){
            this.startX=$event.touches[0].clientX;
-           if($event.target.className.indexOf("remove-item")==-1){
-               this.reposition();
+           if(this.flage){
+               $event.preventDefault();
+                if($event.target.className.indexOf("remove-item")==-1){
+                    this.reposition();
+                }
            }
+            
         },
         touchmove($event){
             this.endX=$event.touches[0].clientX;
@@ -52,9 +58,11 @@ export default {
                     console.log("左滑");
                 }else if(this.endX-this.startX<0&&Math.abs(this.endX-this.startX)>50){
                     console.log("右滑");
-                    let slide=$event.currentTarget.children,item=slide[0],remove=slide[1];
-                    addClass(remove,"slide-active");
-                    addClass(item,"slide-active");
+                    addClass(this.$refs.remove,"slide-active");
+                    addClass(this.$refs.container,"slide-active");
+
+                    this.flage=true;
+
                 }
             }
             
