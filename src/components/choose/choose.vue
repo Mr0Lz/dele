@@ -2,13 +2,12 @@
 
     <section class="choose">
         <div class="choose-choose-box left">
-            <label class="choose-label">
-                <input :name="name" class="choose-input" :type="inputType">
+            <label class="choose-label" >
+                <input :name="name" class="choose-input" :type="inputType" @click="chooseItem">
                 <img class="choose-icon" src="../../images/none.png" alt="">
                 <img class="choose-act-icon" src="../../images/selet.png" alt="">
             </label>                        
         </div>
-        <slot name="choose-container"></slot>
     </section>
 
 </template>
@@ -32,6 +31,11 @@ export default {
             actType: this.actIcon || selet,
             name: this.inputName
         }
+    },
+    methods:{
+        chooseItem (e){
+            console.log(e.target);
+        }
     }
 }
 </script>
@@ -44,30 +48,32 @@ export default {
             position: relative;
             top: 50%;
             margin-top: -0.06rem;
-            .choose-act-icon{
-                opacity: 0;
-            }
-            .choose-label{
-                display: block;
-                @include wh(0.18rem,0.18rem);
-            }
             .choose-icon,.choose-act-icon{
-                display: inline-block;
+                display: block;
                 position: absolute;
                 @include wh(0.18rem,0.18rem);
                 top: 0;
                 left: 0;
                 z-index: -1;
             }
+            .choose-act-icon{
+                display: none;
+            }
+            .choose-label{
+                display: block;
+                @include wh(0.18rem,0.18rem);
+            }
+
             .choose-input{
                 display:none
             }
 
-            .choose-input:checked + img  {
-                opacity: 0;
+            .choose-input:checked + .choose-icon  {
+                display: none;
             }
-            .choose-input:checked + img + img {
-                opacity: 1;
+            //uc 对  .choose-input:checked + .choose-icon + .choose-act-icon 不生效
+            .choose-input:checked + .choose-icon ~ .choose-act-icon {
+                display: block; 
             }
 
         }
