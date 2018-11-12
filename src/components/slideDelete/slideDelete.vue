@@ -50,6 +50,9 @@ export default {
             
         },
         touchmove($event){
+            //安卓4.2系统不能触发touchend的问题
+            // 解决:在touchmove事件中阻止了浏览器默认行为，此时touchend事件可以触发
+             $event.preventDefault();
             this.endX=$event.touches[0].clientX;
         },
         touchend($event){

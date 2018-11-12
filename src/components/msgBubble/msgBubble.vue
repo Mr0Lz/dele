@@ -1,6 +1,6 @@
 <template>
     
-    <section class="msg-bubble-template">
+    <section class="msg-bubble">
             <div class="bubble-container ellipsis">
                 1
             </div>
