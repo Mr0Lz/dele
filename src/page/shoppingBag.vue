@@ -8,10 +8,11 @@
 
             <div class="commodity-list m-t">
 
-                <slide-delete @removeCommodity="removeCommodity" class="commodity-item" v-for=" (item,index) in commodityArr"  :i="index"  :key="index">
+                <div class="commodity-item" v-for=" (item,index) in commodityArr"  :i="index"  :key="index">
+                <slide-delete @removeCommodity="removeCommodity" >
                     <div slot="slide-container"   class="m-l">
-                        <choose class="choose-commodity" inputName="choose"  type="checkbox" ></choose>
-                            <div class="commodity-container" @click="al">
+                        <choose class="choose-commodity" inputName="choose"  type="checkbox" @chooseItem="chooseItem"></choose>
+                            <div class="commodity-container">
                                 <router-link to="/">
                                 <img  class="commodity-img left" :src="item.imgUrl" alt="">
                                 <ul class="left">
@@ -21,9 +22,11 @@
                                 </ul>
                                 </router-link>
                             </div>
+                        
                     </div>
                 </slide-delete>
-
+                <hr/>
+                </div>
 
             </div>
         </section>
@@ -86,8 +89,8 @@ export default {
         choose
     },
     methods:{
-        al(){
-            alert(2);
+        chooseItem($event){
+            console.log(2);
         },
         removeCommodity(container,slide,index){
             console.log(container,slide,index);
@@ -101,8 +104,8 @@ export default {
     @import '../style/mixin';
 
     .shoppingBag{
- 
         .shoppingBag-container{
+            @include hr();            
             background: $colFFF;
             padding-top:0.15rem;
             .commodity-list{

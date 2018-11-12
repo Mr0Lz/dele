@@ -86,3 +86,14 @@ $col5CB531:#5CB531;
     -webkit-box-sizing: content-box; 
     box-sizing: content-box;
 }   
+
+@mixin hr($w:3.2rem,$border:0.01rem solid $colF2){
+   hr{
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: $w;
+    height: 0rem;
+    border: $border;
+   }
+}

@@ -4,8 +4,8 @@
         <div class="choose-choose-box left">
             <label class="choose-label" >
                 <input :name="name" class="choose-input" :type="inputType" @click="chooseItem">
-                <img class="choose-icon" src="../../images/none.png" alt="">
-                <img class="choose-act-icon" src="../../images/selet.png" alt="">
+                <img class="choose-icon" :src="iconType" alt="">
+                <img class="choose-act-icon" :src="actType" alt="">
             </label>                        
         </div>
     </section>
@@ -18,12 +18,12 @@ import none from "@/images/none.png"
 
 export default {
     name: 'choose',
-    props:{
-        type:String,//radio checkbox
-        icon:String,//none remove-fill remove selet-fill selet
-        actIcon:String,//none remove-fill remove selet-fill selet
-        inputName:String
-    },
+    props:[
+        'type',//radio checkbox
+        'icon',//none remove-fill remove selet-fill selet
+        'actIcon',//none remove-fill remove selet-fill selet
+        'inputName'
+    ],
     data(){
         return {
             iconType: this.icon || none,
@@ -33,8 +33,8 @@ export default {
         }
     },
     methods:{
-        chooseItem (e){
-            console.log(e.target);
+        chooseItem ($event){
+            this.$emit('chooseItem',$event);
         }
     }
 }
