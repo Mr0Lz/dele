@@ -22,7 +22,7 @@
                                 </ul>
                                 </router-link>
                             </div>
-                        
+                        <quantity class="commodity-quantity" initVal="1"></quantity>
                     </div>
                 </slide-delete>
                 <hr/>
@@ -40,6 +40,7 @@ import headNav from '@/components/header/headNav'
 import homeFootBar from '@/components/footer/homeFootBar'
 import slideDelete from '@/components/slideDelete/slideDelete'
 import choose from "@/components/choose/choose"
+import quantity from "@/components/quantity/quantity"
 
 
 export default {
@@ -48,6 +49,60 @@ export default {
         return {
             commodityArr:[
                 {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },
+
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00'
+                },{
                     commodityId:'1',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
@@ -86,7 +141,8 @@ export default {
         headNav,
         homeFootBar,
         slideDelete,
-        choose
+        choose,
+        quantity
     },
     methods:{
         chooseItem($event){
@@ -116,6 +172,11 @@ export default {
                     height: 1.1rem;
                     float: left;
                 }
+                .commodity-quantity{
+                        position: absolute;
+                        right: 0.27rem;
+                        bottom: 0.15rem;
+                }
                 .commodity-container{
                     margin-left: 0.33rem;
                     padding: 0.15rem 0;
@@ -135,6 +196,7 @@ export default {
                         padding-top:0.05rem;
                         padding-bottom: 0.19rem; 
                     }
+
                 }
             }
         }

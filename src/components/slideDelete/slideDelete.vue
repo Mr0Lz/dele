@@ -50,10 +50,18 @@ export default {
             
         },
         touchmove($event){
-            //安卓4.2系统不能触发touchend的问题
-            // 解决:在touchmove事件中阻止了浏览器默认行为，此时touchend事件可以触发
-             $event.preventDefault();
             this.endX=$event.touches[0].clientX;
+            //安卓4.2系统不能触发touchend的问题
+            // 解决:在touchmove事件中阻止了浏览器默认行为，此时touchend事件可以触发,
+            //但是touchmove阻止了浏览器默认行为,ios 将不触发scroll事件
+            //$event.preventDefault();
+            let u = navigator.userAgent;
+            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+            if (Math.abs(this.endX-this.startX)>7&&isAndroid) {
+                $event.preventDefault();
+            }
+
+            
         },
         touchend($event){
             if(this.endX!==null){
