@@ -21,9 +21,9 @@ export default {
         @include absolute(-10%,56%);
         @include wh(0.18rem,0.18rem);
         font-weight:100;
-        @include font(0.12rem,$colFFF,center,$line-height:0.18rem);
+        @include font(0.12rem,$white,center,$line-height:0.18rem);
         @include borderRadius(50%);
-        background: $colE7290F;
+        background: $red;
         
     }
 

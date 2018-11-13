@@ -25,18 +25,18 @@ export default {
     .link-group{
         padding-left: 0.28rem;
         width: 100%;
-        @include font(0.16rem,$col191919);
+        @include font(0.16rem,$black);
         background: #fff;
         .link-item{
             display: block;
             @include wh(3.2rem,0.52rem);
             line-height: 0.52rem;
             span{
-                color: $col7F7F7F;
+                color: $gray;
             }
         }
         .link-border{
-            border-top:0.01rem $colF2 solid;
+            border-top:0.01rem $lightGray solid;
         }
     }
 

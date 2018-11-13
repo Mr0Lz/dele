@@ -93,7 +93,7 @@ export default {
         .slide-container{
             position: relative;
             z-index: 1;
-            background-color:$colFFF;
+            background-color:$white;
             height: 100%;
         }   
         .remove-item{
@@ -104,9 +104,9 @@ export default {
             top: 0;
             bottom: 0;
             @include wh(30%,100%);
-            background: $colE7290F;
+            background: $red;
             z-index: 0;
-            @include font(0.16rem,$c:$colFFF);
+            @include font(0.16rem,$c:$white);
             transform: scale(0.8); 
         }
         .slide-container,.remove-item{

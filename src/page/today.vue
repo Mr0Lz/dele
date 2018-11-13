@@ -112,7 +112,7 @@ export default {
                     margin-bottom: 0.08rem;
                 }
                 .commodity-price {             
-                    @include font(0.12rem,$colE7290F);
+                    @include font(0.12rem,$red);
                 }
             }
         }

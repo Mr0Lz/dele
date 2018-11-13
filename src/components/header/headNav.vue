@@ -37,7 +37,7 @@ export default {
     @include font(0.18rem);
     .go-back{
         span{
-            @include font(0.16rem,$colFFF,left);
+            @include font(0.16rem,$white,left);
             letter-spacing: 0.02rem;     
         }
     }
@@ -51,7 +51,7 @@ export default {
        line-height: 0.44rem;
        text-align: center;
         span{
-            color: $colFFF;
+            color: $white;
         }
     }
     .go-back{

@@ -41,10 +41,10 @@ export default {
         bottom: 0;
         left: 0;
         z-index: 1;
-        background: $colFFF;
+        background: $white;
         width: 100%;            
     .home-bar {
-        border-top: 0.01rem solid $colF2;
+        border-top: 0.01rem solid $lightGray;
         @include flex(center,center);
         @include wh(100%,0.49rem);
         > section {
@@ -54,17 +54,17 @@ export default {
             .icon {
                 width: 0.22rem;
                 height: 0.22rem;
-                fill: $colCCC;
+                fill: $mediumGray;
             } 
             span{
                 display: block;
-                color: $colCCC;           
+                color: $mediumGray;           
             }
         }
         .foot-active{
                 span,.icon {
-                    fill:$col191919;
-                    color: $col191919;
+                    fill:$black;
+                    color: $black;
                 }
             } 
     }

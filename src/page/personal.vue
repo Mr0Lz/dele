@@ -19,11 +19,13 @@
             <div class="personal-order m-t-10" >
                 <link-group :item="personalOrder" >
                     <div class="orde-manage" slot="order-manage">
-                        <router-link class="manage-item" :to="item.href" :key="index" v-for="(item ,index) in orderManage" >
-                        <img :src="item.icon" alt="">
-                            {{item.text}}
-                        <msg-bubble></msg-bubble>
-                        </router-link>
+                        <div class="manage-item" :key="index" v-for="(item ,index) in orderManage">
+                        <msgBubble class="item-bubble"></msgBubble>
+                            <router-link  :to="item.href"  >
+                            <img :src="item.icon" alt="">
+                                {{item.text}}
+                            </router-link>
+                        </div>
                     </div>
                 </link-group>
             </div>
@@ -117,9 +119,9 @@ export default {
     @import "../style/mixin";
 
     .personal{
-         background: $colF2;
+         background: $lightGray;
         .personal-avatar {
-            background: $colFFF;
+            background: $white;
             padding: 0.2rem 0;
             .personal-info{
                 @include font(0.2rem);
@@ -128,27 +130,27 @@ export default {
                     margin-bottom: 0.05rem;
                 }
                 .personal-authorize{
-                    @include font(0.12rem,$colCCC);
+                    @include font(0.12rem,$mediumGray);
                 }
             }
             .personal-setting{
                 margin-top: 0.18rem;
-                @include btn($bgc:$colFFF,$c:$col7F7F7F,$border:0.01rem solid $col7F7F7F,$w:0.6rem,$h:0.24rem,$lh:0.24rem,$fsz:0.12rem,$r:0.03rem);
+                @include btn($bgc:$white,$c:$gray,$border:0.01rem solid $gray,$w:0.6rem,$h:0.24rem,$lh:0.24rem,$fsz:0.12rem,$r:0.03rem);
             }
         }
         
         .personal-order{
-            background: $colFFF;
-            .orde-manage{
-                border-top:0.01rem $colF2 solid;
+            background: $white;
+            .orde-manage{        
+                border-top:0.01rem $lightGray solid;
                 width: 3.2rem;
                 padding: 0.14rem 0;                
                 @include flex(center,center);
                 .manage-item{
-                    position: relative;
+                     position: relative;  
                     display: block;
                     flex: 1;
-                    @include font(0.12rem,$col7F7F7F,center);
+                    @include font(0.12rem,$gray,center);
                     img{
                         margin:0 auto 0.05rem auto;
                         @include wh(0.32rem,0.32rem);

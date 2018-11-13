@@ -33,7 +33,7 @@ export default {
     .round{
         @include borderRadius(50%);
         overflow: hidden;
-        background: $colCCC;
+        background: $mediumGray;
     }
     .avatar-s{
         @include wh(0.3rem,0.3rem);

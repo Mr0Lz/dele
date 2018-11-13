@@ -162,7 +162,7 @@ export default {
     .shoppingBag{
         .shoppingBag-container{
             @include hr();            
-            background: $colFFF;
+            background: $white;
             padding-top:0.15rem;
             .commodity-list{
                 .commodity-item{
@@ -182,7 +182,7 @@ export default {
                     padding: 0.15rem 0;
                     overflow: hidden;
                     .commodity-name{
-                        color: $col191919;
+                        color: $black;
                         padding-left: 0.15rem;
                     }
                     .commodity-img{
@@ -190,7 +190,7 @@ export default {
                     }
                     li{
                         padding-left: 0.15rem;
-                        color: $col7F7F7F;
+                        color: $gray;
                     }
                     .commodity-details{
                         padding-top:0.05rem;
