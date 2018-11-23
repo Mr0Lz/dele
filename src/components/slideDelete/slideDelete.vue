@@ -1,6 +1,6 @@
 <template>
     
-    <section class="slide-delete" >
+    <section ref="slideItem" class="slide-delete" >
         <div ref="container" :class=" ['slide-container']"  @touchstart.stop="touchstart"  @touchmove.stop="touchmove"  @touchend.stop="touchend">
             <slot name="slide-container"></slot>
         </div>
@@ -21,16 +21,13 @@ export default {
         return {
             startX:null,
             endX:null,
-            index:this.i,
             flage:false
         }
     },
     methods:{
         remove($event){
-           let slide = $event.currentTarget.parentNode;
-           let container = slide.parentNode;
-        //    container.removeChild(slide);
-           this.$emit("removeCommodity",container,slide,this.index);
+           let slideItem = this.$refs.slideItem;
+           this.$emit("removeCommodity",slideItem);
         },
         reposition(){
             let items=document.querySelectorAll(".slide-active");
@@ -88,6 +85,14 @@ export default {
     @import "../../style/mixin";
 
     .slide-delete{
+        &::after{
+            content: '';
+            display: block;
+            width: 80%;
+            height: 0.01rem;
+            background: $lightGray;
+            margin: 0 auto;
+        }
         position: relative;
         overflow: hidden;
         .slide-container{
