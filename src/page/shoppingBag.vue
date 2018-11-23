@@ -6,10 +6,10 @@
 
             <div class="h-1 m-l m-r">购物袋</div>
 
-            <div class="commodity-list m-t">
+            <div class="commodity-list m-t"  ref="commodityList">
 
-                <div class="commodity-item" v-for=" (item,index) in commodityArr"  :i="index"  :key="index">
-                <slide-delete @removeCommodity="removeCommodity" >
+
+                <slide-delete class="commodity-item" v-for=" (item,index) in commodityArr"   :key="index"   @removeCommodity="removeCommodity" >
                     <div slot="slide-container"   class="m-l">
                         <choose class="choose-commodity" inputName="choose"  type="checkbox" @chooseItem="chooseItem"></choose>
                             <div class="commodity-container">
@@ -22,13 +22,13 @@
                                 </ul>
                                 </router-link>
                             </div>
-                        <quantity class="commodity-quantity" initVal="1"></quantity>
-                    </div>
+                        <quantity @changeVal="changeVal"  maxVal="6" minVal="0" class="commodity-quantity" initVal="1"></quantity>
+                    </div>                
                 </slide-delete>
-                <hr/>
-                </div>
+
 
             </div>
+
         </section>
 
         <home-foot-bar></home-foot-bar>
@@ -148,9 +148,11 @@ export default {
         chooseItem($event){
             console.log(2);
         },
-        removeCommodity(container,slide,index){
-            console.log(container,slide,index);
-            this.commodityArr.splice(index,1);
+        removeCommodity(slideItem){
+           this.$refs.commodityList.removeChild(slideItem);
+        },
+        changeVal(val){
+            console.log(val);
         }
     }
 }
@@ -161,7 +163,6 @@ export default {
 
     .shoppingBag{
         .shoppingBag-container{
-            @include hr();            
             background: $white;
             padding-top:0.15rem;
             .commodity-list{

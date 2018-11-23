@@ -1,32 +1,63 @@
 <template>
 
     <section class="quantity">
-        <span class="add">-</span>
-        <label><input type="number"  :value="value"></label>
-        <span class="reduce">+</span>
+        <span ref="reduce" class="reduce"  @click="addAndReduce($event,-1)">-</span>
+        <label><input type="number"  v-model.trim.number="value"></label>
+        <span ref="add" class="add" @click="addAndReduce($event,1)">+</span>
     </section>
 
 </template>
 
 <script>
+import {removeClass,addClass} from "@/config/mUtils";
+
 export default {
     name :'quantity',
     props:[
-        "initVal"
+        'initVal',
+        'maxVal',
+        'minVal'
     ],
     data(){
         return {
-            value:this.initVal||0
+            value:this.initVal||this.minVal||0,
+            max:this.maxVal||100,
+            min:this.minVal||0
+        }
+    },
+    watch:{
+        value:function(val){
+            
+            if(this.value<=this.min){
+                this.value=this.min;
+            }
+
+            if(this.value>=this.max){
+                this.value=this.max;
+            }     
+
+            this.$emit('changeVal',this.value);  
+
         }
     },
     methods:{
-        add(){
+        addAndReduce($event,type){
+            this.value=Number(this.value)+type;
+            let add=this.$refs.add;
+            let reduce=this.$refs.reduce;            
 
-        },
-        reduce(){
+          type==1 ? removeClass(reduce,'disabled') : removeClass(add,'disabled'); 
+
+            if(this.value<=this.min){
+                addClass(reduce,'disabled');
+            }
+
+            if(this.value>=this.max){
+                addClass(add,'disabled');
+            }    
+            
 
         }
-
     }
 }
 </script>
@@ -49,18 +80,18 @@ export default {
             padding-left:0.14rem;
             padding-right:0.14rem;
         }
-        .add{
+        .reduce{
             border-bottom-left-radius: 0.04rem;
             border-top-left-radius: 0.04rem;
             border-right:0px; 
         }
-        .reduce{
+        .add{
             border-bottom-right-radius: 0.04rem;
             border-top-right-radius: 0.04rem;
             border-left: 0px;
         }
         .disabled{
-         background: $mediumGray;
+         border-color: $mediumGray;
          color: $mediumGray   
         }
     }
