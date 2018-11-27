@@ -73,7 +73,7 @@ $green:#5CB531;
     align-items: $ytype;
 }
 
-@mixin  btn($bgc:$colFFF,$c:$col3791FA,$border:0.01rem solid $col3791FA,$w:3.18rem,$h:0.38rem,$lh:0.4rem,$fsz:0.16rem,$align:center,$r:0.06rem){
+@mixin  btn($bgc:$white,$c:$blue,$border:0.01rem solid $blue,$w:3.18rem,$h:0.38rem,$lh:0.4rem,$fsz:0.16rem,$align:center,$r:0.06rem){
     display: block;
     background-color: $bgc;
     border:$border;

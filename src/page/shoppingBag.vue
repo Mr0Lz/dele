@@ -6,15 +6,17 @@
 
             <div class="h-1 m-l m-r">购物袋</div>
 
-            <div class="commodity-list m-t"  ref="commodityList">
+            <div class="commodity-list m-t" v-if="commodityArr.length&&$route.query.flage==1"  ref="commodityList">
 
 
-                <slide-delete class="commodity-item" v-for=" (item,index) in commodityArr"   :key="index"   @removeCommodity="removeCommodity" >
+                <slide-delete class="commodity-item"  v-for=" (item,index) in commodityArr" :i="index"   :key="index"   @slideDelete="slideDelete" >
                     <div slot="slide-container"   class="m-l">
                         <choose class="choose-commodity" inputName="choose"  type="checkbox" @chooseItem="chooseItem"></choose>
                             <div class="commodity-container">
                                 <router-link to="/">
-                                <img  class="commodity-img left" :src="item.imgUrl" alt="">
+                                <div  class="commodity-img left">
+                                    <img  :src="item.imgUrl" alt="">
+                                </div>
                                 <ul class="left">
                                     <li class="h-2 commodity-name">{{item.commodityName}}</li>
                                     <li class="commodity-details">180g/盒; 五盒/套</li>
@@ -26,10 +28,39 @@
                     </div>                
                 </slide-delete>
 
-
+                <div class="m-l m-t-10 slide-tip">
+                    * 左滑可删除当前商品
+                </div>
             </div>
-
+            <div v-else class="nothing">
+                <svg class="icon">
+                    <use xlink:href="#bag"></use>
+                </svg>
+                <p class="h-2 nothing-tip">袋子里什么都没有</p>
+                <router-link class="nothing-link" to="/">
+                        去逛逛
+                </router-link>
+            </div>
         </section>
+
+        <section class="invalid-container" v-if="invalidArr.length&&$route.query.invalid==1">   
+            <div class="invalid-list">
+                <p class="h-2 m-l invalid-h">以下商品已失效：<span class="h-2 right m-r invalid-clear" @click="invalidClear">清空</span></p>
+
+                <div class="invalid-item" v-for="(item , index) in invalidArr" :key="index">
+                    <div  class="invalid-img left ">
+                        <img  src="static/mangguo.png" alt="">
+                    </div>
+                    <ul class="left">
+                        <li class="h-2 commodity-name">{{item.commodityName}}</li>
+                        <li class="commodity-details">已售罄</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+
+
 
         <home-foot-bar></home-foot-bar>
     </section>
@@ -47,6 +78,28 @@ export default {
     name: 'shoppingBag',
     data (){
         return {
+            invalidArr:[ {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶1',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00',
+                    check:true
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶1',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00',
+                    check:true
+                },
+                {
+                    commodityId:'1',
+                    commodityName:'芒果酸奶1',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'12.00',
+                    check:true
+                }
+                ],
             commodityArr:[
                 {
                     commodityId:'1',
@@ -148,11 +201,17 @@ export default {
         chooseItem($event){
             console.log(2);
         },
-        removeCommodity(slideItem){
-           this.$refs.commodityList.removeChild(slideItem);
+        slideDelete(slideItem,i){
+           //this.$refs.commodityList.removeChild(slideItem);
+           console.log(slideItem,i);
+           this.commodityArr.splice(i,1);
+           console.log(this.commodityArr);
         },
         changeVal(val){
             console.log(val);
+        },
+        invalidClear(){
+            this.invalidArr=[];
         }
     }
 }
@@ -162,6 +221,23 @@ export default {
     @import '../style/mixin';
 
     .shoppingBag{
+        .commodity-name{
+            color: $black;
+            padding-left: 0.15rem;
+        }
+        .commodity-img{
+            @include wh(0.8rem,0.8rem);
+            @include borderRadius();
+            overflow: hidden;
+        }
+        li{
+            padding-left: 0.15rem;
+            color: $gray;
+        }
+        .commodity-details{
+            padding-top:0.05rem;
+            padding-bottom: 0.19rem; 
+        }
         .shoppingBag-container{
             background: $white;
             padding-top:0.15rem;
@@ -182,24 +258,65 @@ export default {
                     margin-left: 0.33rem;
                     padding: 0.15rem 0;
                     overflow: hidden;
-                    .commodity-name{
-                        color: $black;
-                        padding-left: 0.15rem;
-                    }
-                    .commodity-img{
-                        @include wh(0.8rem,0.8rem);
-                    }
-                    li{
-                        padding-left: 0.15rem;
-                        color: $gray;
-                    }
-                    .commodity-details{
-                        padding-top:0.05rem;
-                        padding-bottom: 0.19rem; 
-                    }
+                }
+                .slide-tip{
+                        font-size: 0.12rem;
+                        color:$lightGray;
+                        padding-bottom: 0.15rem;
+                }
+            }
+            .nothing{
+                padding-top: 0.62rem;
+                padding-bottom:0.3rem;
+                .nothing-tip{
+                    text-align: center;
+                    color: $mediumGray;
+                    margin: 0.2rem 0;
+                }
+                .icon{
+                    display: block;
+                    margin: 0 auto;
+                    @include wh(1rem,1rem);
+                    fill: $lightGray;
+                }
+                .nothing-link{
+                    margin: 0 auto;
+                    @include btn($c:$mediumGray,$border:0.01rem solid $mediumGray,$w:0.6rem,
 
+$h:0.24rem,$lh:0.24rem,$fsz:0.12rem,$align:center,$r:0.03rem);
                 }
             }
         }
+        .invalid-container{
+            background: $lightGray;
+            padding-top: 0.1rem;
+            padding-bottom: 0.6rem;            
+            .invalid-list{
+                background: $white;
+                font-size: 0.12rem;
+                .invalid-h{
+                    color: $gray;
+                    padding: 0.15rem 0;
+                }
+                .invalid-clear{
+                    color: $red;
+                }
+                .invalid-item{
+                    width: 3.2rem;
+                    margin: 0 auto;
+                    padding: 0.15rem 0;
+                    overflow: hidden;                    
+                    border-top: 0.01rem solid $lightGray;
+                    .invalid-img{
+                        @include wh(0.6rem,0.6rem);
+                        @include borderRadius();
+                        overflow: hidden;
+                    }
+                }
+            }
+
+        }
+
+
     }
 </style>

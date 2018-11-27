@@ -27,7 +27,8 @@ export default {
     methods:{
         remove($event){
            let slideItem = this.$refs.slideItem;
-           this.$emit("removeCommodity",slideItem);
+           this.$emit("slideDelete",slideItem,this.i);
+           this.reposition();
         },
         reposition(){
             let items=document.querySelectorAll(".slide-active");
