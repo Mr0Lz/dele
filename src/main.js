@@ -9,7 +9,8 @@ import 'babel-polyfill'
 import './config/rem'
 //使用svg-sprite-loader 处理svg
 import './config/svgSprite'
-
+//使用 store
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

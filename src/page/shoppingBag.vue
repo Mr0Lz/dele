@@ -11,7 +11,9 @@
 
                 <slide-delete class="commodity-item"  v-for=" (item,index) in commodityArr" :i="index"   :key="index"   @slideDelete="slideDelete" >
                     <div slot="slide-container"   class="m-l">
-                        <choose class="choose-commodity" inputName="choose"  type="checkbox" @chooseItem="chooseItem"></choose>
+                        <choose class="choose-commodity"  >
+                            <input type="checkbox" slot="input"  @click="chooseItem">
+                        </choose>
                             <div class="commodity-container">
                                 <router-link to="/">
                                 <div  class="commodity-img left">
@@ -62,7 +64,13 @@
 
 
 
-        <home-foot-bar></home-foot-bar>
+        <home-foot-bar>
+            <div slot="totalPrice">
+                <choose>
+                    <input type="checkbox"  slot="input" @click="chooseAll">
+                </choose>
+            </div>
+        </home-foot-bar>
     </section>
 </template>
 
@@ -72,7 +80,6 @@ import homeFootBar from '@/components/footer/homeFootBar'
 import slideDelete from '@/components/slideDelete/slideDelete'
 import choose from "@/components/choose/choose"
 import quantity from "@/components/quantity/quantity"
-
 
 export default {
     name: 'shoppingBag',
@@ -108,71 +115,23 @@ export default {
                     commodityPrice:'12.00'
                 },
                 {
-                    commodityId:'1',
+                    commodityId:'2',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 },
                 {
-                    commodityId:'1',
+                    commodityId:'3',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 },
                 {
-                    commodityId:'1',
+                    commodityId:'4',
                     commodityName:'芒果酸奶',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
-                },
-                {
-                    commodityId:'1',
-                    commodityName:'芒果酸奶',
-                    imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
-                },
-                {
-                    commodityId:'1',
-                    commodityName:'芒果酸奶',
-                    imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
-                },
-                {
-                    commodityId:'1',
-                    commodityName:'芒果酸奶',
-                    imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
-                },
-                {
-                    commodityId:'1',
-                    commodityName:'芒果酸奶',
-                    imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
-                },
-
-                {
-                    commodityId:'1',
-                    commodityName:'芒果酸奶',
-                    imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
-                },{
-                    commodityId:'1',
-                    commodityName:'芒果酸奶',
-                    imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
-                },
-                {
-                    commodityId:'1',
-                    commodityName:'芒果酸奶',
-                    imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
-                },
-                {
-                    commodityId:'1',
-                    commodityName:'芒果酸奶',
-                    imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
-                },
+                }
             ]
         }
     },
@@ -199,7 +158,10 @@ export default {
     },
     methods:{
         chooseItem($event){
-            console.log(2);
+            console.log('单选');
+        },
+        chooseAll($event){
+            console.log('全选');
         },
         slideDelete(slideItem,i){
            //this.$refs.commodityList.removeChild(slideItem);
@@ -221,6 +183,10 @@ export default {
     @import '../style/mixin';
 
     .shoppingBag{
+        .choose-commodity{
+            height: 1.1rem;
+            float: left;
+        }
         .commodity-name{
             color: $black;
             padding-left: 0.15rem;
@@ -244,10 +210,6 @@ export default {
             .commodity-list{
                 .commodity-item{
                     font-size: 0.12rem;
-                }
-                .choose-commodity{
-                    height: 1.1rem;
-                    float: left;
                 }
                 .commodity-quantity{
                         position: absolute;

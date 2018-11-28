@@ -6,14 +6,14 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
-
+console.log(state);
 //使用前注入根对象 
 Vue.use(Vuex)
 
 
 export default new Vuex.Store({
     state,
-    getters,,
+    getters,
     mutations,
     actions
 })
