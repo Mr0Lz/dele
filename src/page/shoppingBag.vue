@@ -11,8 +11,8 @@
 
                 <slide-delete class="commodity-item"  v-for=" (item,index) in commodityArr" :i="index"   :key="index"   @slideDelete="slideDelete" >
                     <div slot="slide-container"   class="m-l">
-                        <choose class="choose-commodity"  >
-                            <input type="checkbox" slot="input"  @click="chooseItem($event,item)" v-model="checkedArr" :value="item.commodityId">
+                        <choose class="choose-commodity left"  >
+                            <input type="checkbox" slot="input"  @click="chooseItem($event,item)" v-model="checkedArr" :value="item">
                         </choose>
                             <div class="commodity-container">
                                 <router-link to="/">
@@ -22,7 +22,7 @@
                                 <ul class="left">
                                     <li class="h-2 commodity-name">{{item.commodityName}}</li>
                                     <li class="commodity-details">180g/盒; 五盒/套</li>
-                                    <li class="commodity-price">¥57.00</li>
+                                    <li class="commodity-price">{{item.commodityPrice}}</li>
                                 </ul>
                                 </router-link>
                             </div>
@@ -65,10 +65,13 @@
 
 
         <home-foot-bar>
-            <div slot="totalPrice">
-                <choose>
-                    <input type="checkbox"  slot="input" @click="chooseAll" v-model="allChecked"  >
+            <div slot="totalPrice" class="total-price">
+                <choose class="left m-l checked-all">
+                    <input type="checkbox"   slot="input" @click="chooseAll" v-model="allChecked"  >全选
                 </choose>
+                <div class="right price">
+                    ¥{{totalPrice}}
+                </div>
             </div>
         </home-foot-bar>
     </section>
@@ -111,25 +114,25 @@ export default {
                     commodityId:'1',
                     commodityName:'芒果酸奶1',
                     imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
+                    commodityPrice:'122.00'
                 },
                 {
                     commodityId:'2',
                     commodityName:'芒果酸奶2',
                     imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
+                    commodityPrice:'123.00'
                 },
                 {
                     commodityId:'3',
                     commodityName:'芒果酸奶3',
                     imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
+                    commodityPrice:'124.00'
                 },
                 {
                     commodityId:'4',
                     commodityName:'芒果酸奶4',
                     imgUrl:'static/mangguo.png',
-                    commodityPrice:'12.00'
+                    commodityPrice:'125.00'
                 }
             ]
         }
@@ -137,13 +140,35 @@ export default {
     computed:{
         allChecked:{
             get:function(){
-                return this.checkedArr.length===this.commodityArr.length;
+                return this.checkedArr.length===this.commodityArr.length&&this.commodityArr.length!=0;
             },
             set:function(val){
                 console.log(val);
                 if(val){
                     this.checkedArr=this.commodityArr.map(function(item){
-                        return item.commodityId;
+                        return item;
+                    });
+                }else{
+                    this.checkedArr=[];
+                }
+            }
+        },
+        totalPrice:{
+             get:function(){
+                 if(this.checkedArr.length==0){
+                     return "0.00";
+                 }
+                let price=0;
+                this.checkedArr.forEach(function(item){
+                    price+=Number(item.commodityPrice);
+                });
+                return price;
+            },
+            set:function(val){
+                console.log(val);
+                if(val){
+                    this.checkedArr=this.commodityArr.map(function(item){
+                        return item;
                     });
                 }else{
                     this.checkedArr=[];
@@ -181,14 +206,14 @@ export default {
         },
         slideDelete(slideItem,i){
             let that=this;
-           //this.$refs.commodityList.removeChild(slideItem);
-           console.log(slideItem,i);
-           let removeItem=that.commodityArr.splice(i,1);      
-           that.checkedArr.forEach(function(val,index){
-               if(removeItem[0].commodityId==val){
+            //this.$refs.commodityList.removeChild(slideItem);
+            console.log(slideItem,i);
+            let removeItem=that.commodityArr.splice(i,1);
+            that.checkedArr.forEach(function(item,index){
+                if(removeItem[0].commodityId==item.commodityId){
                     that.checkedArr.splice(index,1);
-               }
-           });
+                }
+            });
         },
         changeVal(val){
             console.log(val);
@@ -204,9 +229,23 @@ export default {
     @import '../style/mixin';
 
     .shoppingBag{
+        .total-price{
+            height: 0.49rem;
+            font-size: 0.16rem;
+            border-top: 0.01rem solid $lightGray;
+            line-height: 0.50rem;
+            .checked-all{
+                color: $gray;
+                text-indent: 0.28rem;
+            }
+            .price{
+                color: $red;
+                margin-right: 0.2rem;
+            }
+        }
         .choose-commodity{
-            height: 1.1rem;
-            float: left;
+            @include wh(0.18rem,0.18rem);
+            margin-top: 0.46rem;
         }
         .commodity-name{
             color: $black;
@@ -273,7 +312,7 @@ $h:0.24rem,$lh:0.24rem,$fsz:0.12rem,$align:center,$r:0.03rem);
         .invalid-container{
             background: $lightGray;
             padding-top: 0.1rem;
-            padding-bottom: 0.6rem;            
+            padding-bottom: 1.5rem;            
             .invalid-list{
                 background: $white;
                 font-size: 0.12rem;
