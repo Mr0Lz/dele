@@ -12,7 +12,7 @@
                 <slide-delete class="commodity-item"  v-for=" (item,index) in commodityArr" :i="index"   :key="index"   @slideDelete="slideDelete" >
                     <div slot="slide-container"   class="m-l">
                         <choose class="choose-commodity"  >
-                            <input type="checkbox" slot="input"  @click="chooseItem">
+                            <input type="checkbox" slot="input"  @click="chooseItem($event,item)" v-model="checkedArr" :value="item.commodityId">
                         </choose>
                             <div class="commodity-container">
                                 <router-link to="/">
@@ -67,7 +67,7 @@
         <home-foot-bar>
             <div slot="totalPrice">
                 <choose>
-                    <input type="checkbox"  slot="input" @click="chooseAll">
+                    <input type="checkbox"  slot="input" @click="chooseAll" v-model="allChecked"  >
                 </choose>
             </div>
         </home-foot-bar>
@@ -81,58 +81,74 @@ import slideDelete from '@/components/slideDelete/slideDelete'
 import choose from "@/components/choose/choose"
 import quantity from "@/components/quantity/quantity"
 
+
 export default {
     name: 'shoppingBag',
     data (){
         return {
+            checkedArr:[],
             invalidArr:[ {
                     commodityId:'1',
                     commodityName:'芒果酸奶1',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00',
-                    check:true
                 },
                 {
                     commodityId:'1',
                     commodityName:'芒果酸奶1',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00',
-                    check:true
                 },
                 {
                     commodityId:'1',
                     commodityName:'芒果酸奶1',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00',
-                    check:true
                 }
                 ],
             commodityArr:[
                 {
                     commodityId:'1',
-                    commodityName:'芒果酸奶',
+                    commodityName:'芒果酸奶1',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 },
                 {
                     commodityId:'2',
-                    commodityName:'芒果酸奶',
+                    commodityName:'芒果酸奶2',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 },
                 {
                     commodityId:'3',
-                    commodityName:'芒果酸奶',
+                    commodityName:'芒果酸奶3',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 },
                 {
                     commodityId:'4',
-                    commodityName:'芒果酸奶',
+                    commodityName:'芒果酸奶4',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'12.00'
                 }
             ]
+        }
+    },
+    computed:{
+        allChecked:{
+            get:function(){
+                return this.checkedArr.length===this.commodityArr.length;
+            },
+            set:function(val){
+                console.log(val);
+                if(val){
+                    this.checkedArr=this.commodityArr.map(function(item){
+                        return item.commodityId;
+                    });
+                }else{
+                    this.checkedArr=[];
+                }
+            }
         }
     },
     mounted(){
@@ -157,17 +173,22 @@ export default {
         quantity
     },
     methods:{
-        chooseItem($event){
-            console.log('单选');
+        chooseItem($event,item){
+            console.log('单选',item.commodityId);
         },
         chooseAll($event){
-            console.log('全选');
+            console.log('全选',this.checkedArr);
         },
         slideDelete(slideItem,i){
+            let that=this;
            //this.$refs.commodityList.removeChild(slideItem);
            console.log(slideItem,i);
-           this.commodityArr.splice(i,1);
-           console.log(this.commodityArr);
+           let removeItem=that.commodityArr.splice(i,1);      
+           that.checkedArr.forEach(function(val,index){
+               if(removeItem[0].commodityId==val){
+                    that.checkedArr.splice(index,1);
+               }
+           });
         },
         changeVal(val){
             console.log(val);
