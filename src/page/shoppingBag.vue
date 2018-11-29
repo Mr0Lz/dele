@@ -26,7 +26,7 @@
                                 </ul>
                                 </router-link>
                             </div>
-                        <quantity @changeVal="changeVal"  maxVal="6" minVal="0" class="commodity-quantity" initVal="1"></quantity>
+                        <quantity @changeVal="changeVal(item)"  maxVal="6" minVal="0" class="commodity-quantity" :initVal="item.quantity"></quantity>
                     </div>                
                 </slide-delete>
 
@@ -114,25 +114,29 @@ export default {
                     commodityId:'1',
                     commodityName:'芒果酸奶1',
                     imgUrl:'static/mangguo.png',
-                    commodityPrice:'122.00'
+                    commodityPrice:'122.00',
+                    quantity:1
                 },
                 {
                     commodityId:'2',
                     commodityName:'芒果酸奶2',
                     imgUrl:'static/mangguo.png',
-                    commodityPrice:'123.00'
+                    commodityPrice:'123.00',
+                    quantity:2
                 },
                 {
                     commodityId:'3',
                     commodityName:'芒果酸奶3',
                     imgUrl:'static/mangguo.png',
-                    commodityPrice:'124.00'
+                    commodityPrice:'124.00',
+                    quantity:3
                 },
                 {
                     commodityId:'4',
                     commodityName:'芒果酸奶4',
                     imgUrl:'static/mangguo.png',
-                    commodityPrice:'125.00'
+                    commodityPrice:'125.00',
+                    quantity:4
                 }
             ]
         }
@@ -160,7 +164,7 @@ export default {
                  }
                 let price=0;
                 this.checkedArr.forEach(function(item){
-                    price+=Number(item.commodityPrice);
+                    price+=Number(item.commodityPrice)*Number(item.quantity);
                 });
                 return price;
             },
@@ -215,8 +219,8 @@ export default {
                 }
             });
         },
-        changeVal(val){
-            console.log(val);
+        changeVal(item,val){
+            console.log(item.quantity=val);
         },
         invalidClear(){
             this.invalidArr=[];
