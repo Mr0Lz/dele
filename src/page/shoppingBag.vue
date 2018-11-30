@@ -26,7 +26,7 @@
                                 </ul>
                                 </router-link>
                             </div>
-                        <quantity @changeVal="changeVal(item,$event)"  maxVal="6" minVal="0" class="commodity-quantity" :initVal="item.quantity"></quantity>
+                        <quantity @changeVal="changeVal(item,$event)"  maxVal="6" minVal="1" class="commodity-quantity" :initVal="item.quantity"></quantity>
                     </div>                
                 </slide-delete>
 
@@ -115,14 +115,14 @@ export default {
                     commodityName:'芒果酸奶1',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'122.00',
-                    quantity:1
+                    quantity:0
                 },
                 {
                     commodityId:'2',
                     commodityName:'芒果酸奶2',
                     imgUrl:'static/mangguo.png',
                     commodityPrice:'123.00',
-                    quantity:2
+                    quantity:7
                 },
                 {
                     commodityId:'3',

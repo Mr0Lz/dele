@@ -1,9 +1,9 @@
 <template>
 
     <section class="quantity">
-        <span ref="reduce" class="reduce"  @click="addAndReduce($event,-1)">-</span>
+        <span ref="reduce" :class=" 'reduce'+( min >= val ? ' disabled' : '' ) "  @click="addAndReduce($event,-1)">-</span>
         <label><input type="number"  v-model.trim.number="value"></label>
-        <span ref="add" class="add" @click="addAndReduce($event,1)">+</span>
+        <span ref="add" :class=" 'add'+( max <= val ? ' disabled' : '' ) " @click="addAndReduce($event,1)">+</span>
     </section>
 
 </template>
@@ -20,7 +20,7 @@ export default {
     ],
     data(){
         return {
-            val:this.initVal||this.minVal||0,
+            val: ( this.initVal >= this.maxVal ? this.maxVal : this.initVal ) || this.minVal || 0,
             max:this.maxVal||100,
             min:this.minVal||0
         }
