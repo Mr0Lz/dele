@@ -20,24 +20,29 @@ export default {
     ],
     data(){
         return {
-            value:this.initVal||this.minVal||0,
+            val:this.initVal||this.minVal||0,
             max:this.maxVal||100,
             min:this.minVal||0
         }
     },
-    watch:{
-        value:function(val){
-            
-            if(this.value<=this.min){
-                this.value=this.min;
+    computed:{
+        value:{
+            get(){
+                let val=Number(this.val);
+                this.$emit('changeVal',val);
+                return val;
+            },
+            set(v){
+                if(v<=this.min){
+                    return  this.val=this.min;
+                }
+
+                if(v>=this.max){
+                    return   this.val=this.max;
+                }   
+                
+                return   this.val=v;
             }
-
-            if(this.value>=this.max){
-                this.value=this.max;
-            }     
-
-            this.$emit('changeVal',this.value);  
-
         }
     },
     methods:{

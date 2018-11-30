@@ -26,7 +26,7 @@
                                 </ul>
                                 </router-link>
                             </div>
-                        <quantity @changeVal="changeVal(item)"  maxVal="6" minVal="0" class="commodity-quantity" :initVal="item.quantity"></quantity>
+                        <quantity @changeVal="changeVal(item,$event)"  maxVal="6" minVal="0" class="commodity-quantity" :initVal="item.quantity"></quantity>
                     </div>                
                 </slide-delete>
 
@@ -220,7 +220,8 @@ export default {
             });
         },
         changeVal(item,val){
-            console.log(item.quantity=val);
+            console.log(item,val);
+           item.quantity=val;
         },
         invalidClear(){
             this.invalidArr=[];
