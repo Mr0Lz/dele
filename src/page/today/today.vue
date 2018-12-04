@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import headNav from './../components/header/headNav'
-import homeFootBar from './../components/footer/homeFootBar'
-import avatar from './../components/avatar/avatar'
-import swiper from './../components/swiper/swiper'
+import headNav from '@/components/header/headNav'
+import homeFootBar from '@/components/footer/homeFootBar'
+import avatar from './../../components/avatar/avatar'
+import swiper from './../../components/swiper/swiper'
 
 export default {
     name: 'today',
@@ -90,7 +90,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../style/mixin.scss';
+    @import '../../style/mixin.scss';
 
     .today{
         .today-container {//用于填补homeFootBar的高度

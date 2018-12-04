@@ -231,7 +231,7 @@ export default {
 </script>
 
 <style lang="scss">
-    @import '../style/mixin';
+   @import '../../style/mixin.scss';
 
     .shoppingBag{
         .total-price{

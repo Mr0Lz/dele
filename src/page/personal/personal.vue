@@ -116,7 +116,7 @@ export default {
 
 
 <style lang="scss" scoped>
-    @import "../style/mixin";
+    @import '../../style/mixin.scss';
 
     .personal{
          background: $lightGray;

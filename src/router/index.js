@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import today from '@/page/today' //首页,今日推荐页面
-import personal from '@/page/personal' //个人中心页面
-import shoppingBag from '@/page/shoppingBag' //购物袋页面
+import today from '@/page/today/today' //首页,今日推荐页面
+import personal from '@/page/personal/personal' //个人中心页面
+import shoppingBag from '@/page/shoppingBag/shoppingBag' //购物袋页面
 
 Vue.use(Router)
 
