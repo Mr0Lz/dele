@@ -12,7 +12,7 @@
             <!-- 轮播 -->
             <div class="today-swiper m-t">
                 <div class="h-2 m-l">明星单品</div>
-                <swiper class="swiper-box"></swiper>
+                <swiper :itemList="swiperList"  class="swiper-box"></swiper>
             </div>
             <!-- 商品列表 -->
             <div class="commodity-list">
@@ -42,7 +42,18 @@ export default {
     name: 'today',
     data(){
         return {
-            title:'得乐商城',
+            title:'商城',
+            imgBaseUrl:'',
+            swiperList:[
+                {
+                    imgUrl:require('../../images/image1.png'),//引入在src目录下的静态文件需要import 或者 require  
+                    toPath:'./productDetails?id=1'                                        
+                },{
+                    imgUrl:'https://lz-dele.netlify.com/static/img/image2.96618e2.jpg',//否则使用 直接使用静态服务器的路径
+                    toPath:'./productDetails?id=2'  
+                },
+                {}//使用默认图片
+            ],
             commodityList:[
                 {
                     commodityId:'1',

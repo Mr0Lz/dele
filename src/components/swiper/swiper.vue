@@ -5,18 +5,15 @@
 
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div :class="['swiper-slide',{'hidden-slide':!imgReady}]" >
-            <img  src="../../images/image1.png" alt="">
+
+          <div :class="['swiper-slide',{'hidden-slide':!imgReady}]" :key="index"  v-for=" (item ,index) in list" @click="clickSwiper($event,item.path)">
+            <img  :src="item.imgUrl || defualtImg" alt="">
           </div>
-          <div :class="['swiper-slide',{'hidden-slide':!imgReady}]" >
-            <img  src="../../images/image2.jpg" alt="">
-          </div>
-          <div :class="['swiper-slide',{'hidden-slide':!imgReady}]" >
-            <img  :src="defualtImg" alt="">
-          </div>
+
+
         </div>
         <!-- 如果需要分页器 -->
-        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination" style="font-size:16px;"></div>
         <!-- 如果需要导航按钮 -->
         <!-- <div class="swiper-button-prev"></div> -->
         <!-- <div class="swiper-button-next"></div> -->
@@ -35,14 +32,20 @@ import loading from '@/components/loading/loading'
 
 export default {
   name: 'swiper',
+  props:['itemList'],
   data(){
     return {
       defualtImg: defualtImg,
+      list:this.itemList,
       imgReady: false,
     }
   },
   mounted () {
-      const that=this;
+      const that=this;    
+      if (that.list.length===0){
+        that.imgReady=true;
+        return ;
+      }
       new Swiper('.swiper-container',{
         autoplay: 5000,//自动播放
         pagination: '.swiper-pagination',// 如果需要分页器
@@ -69,6 +72,11 @@ export default {
   },
   components:{
     loading
+  },
+  methods:{
+    clickSwiper:function($event,path){
+      console.log($event,path)
+    }
   }
 }
 </script>
@@ -77,11 +85,8 @@ export default {
 @import '../../style/mixin';
 
 .swiper {
-  img{
-    height: 1.7rem;
-  }
     position: relative;
-    @include wh(86%);
+
     .swiper-img-load{
       @include wh(0.24rem);
       @include absolute(50%,50%);
@@ -89,25 +94,23 @@ export default {
       margin-top:-0.12rem;
     }
   
-  .swiper-container {
-    @include borderRadius();
-    overflow: hidden;
-    .swiper-slide{
+    .swiper-container {
+      width: 600px;
+      height: 300px;
+      @include wh(3.2rem,1.7rem);
       @include borderRadius();
-      overflow: hidden;  
+      overflow: hidden;
+      .swiper-slide{
+        @include borderRadius();
+        overflow: hidden;  
+      }
+      .hidden-slide{
+        opacity: 0;
+      }
     }
-    .hidden-slide{
-      opacity: 0;
-    }
-    .swiper-pagination {
-      .swiper-pagination-bullet-active {
-          background: #000;
-        }
-    }
-  }
 
-  .swiper-container-horizontal>.swiper-pagination-bullets{
-      bottom:-8% !important;
-  }
+    .swiper-pagination-bullet-active {
+      background: #000;
+    }
 }
 </style>
