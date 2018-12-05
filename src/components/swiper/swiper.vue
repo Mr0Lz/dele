@@ -77,6 +77,9 @@ export default {
 @import '../../style/mixin';
 
 .swiper {
+  img{
+    height: 1.7rem;
+  }
     position: relative;
     @include wh(86%);
     .swiper-img-load{
