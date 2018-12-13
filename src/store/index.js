@@ -6,7 +6,7 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
-console.log(state);
+console.log("state:",state);
 //使用前注入根对象 
 Vue.use(Vuex)
 
