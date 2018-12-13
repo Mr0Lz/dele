@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: [
       {
-        context: ['/t', '/user'],
+        context: ['/v1/t', '/v1/user'],
         target:'http://localhost:3000'
       }
     ],//前后端分离,本地开发api用http://127.0.0.1:8080/;线上用:http://dele-server-dele-server.1d35.starter-us-east-1.openshiftapps.com/

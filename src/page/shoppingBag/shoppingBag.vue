@@ -191,7 +191,7 @@ export default {
             }
         }
         //xmlhttp.open("GET","http://dele-server-dele-server.1d35.starter-us-east-1.openshiftapps.com/pagecount",true);
-        xmlhttp.open("GET","/t",true);
+        xmlhttp.open("GET","/v1/t",true);
         xmlhttp.send();
     },
     components:{

@@ -28,7 +28,12 @@ export default new Router({
     {
       path: '/personal',
       name: 'personal',
-      component: personal
+      component: personal,
+      children:[
+        {
+          path: '/info',
+        }
+      ]
     },
     {
       path: '/productDetails',

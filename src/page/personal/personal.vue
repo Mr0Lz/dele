@@ -12,7 +12,7 @@
                     <p class="personal-name">Pro9ice</p>
                     <p class="personal-authorize">已绑定微信</p>
                 </div>
-                <router-link  to="xxx" class="personal-setting right m-r">资料设置</router-link>
+                <router-link  to="/personal" class="personal-setting right m-r">资料设置</router-link>
             </div>
 
             <!-- 我的订单  -->
@@ -20,7 +20,7 @@
                 <link-group :item="personalOrder" >
                     <div class="orde-manage" slot="order-manage">
                         <div class="manage-item" :key="index" v-for="(item ,index) in orderManage">
-                        <msgBubble class="item-bubble"></msgBubble>
+                        <msgBubble init="1"  class="item-bubble"></msgBubble>
                             <router-link  :to="item.href"  >
                             <img :src="item.icon" alt="">
                                 {{item.text}}
