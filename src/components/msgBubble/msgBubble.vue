@@ -1,30 +1,47 @@
 <template>
     
-    <section class="msg-bubble">
-            <div class="bubble-container ellipsis">
-                1
-            </div>
+    <section class="msg-bubble ellipsis" v-if="this.init!=false"  @click="tapBubble">
+                {{val}}
     </section>
 
 </template>
 
 <script>
 export default {
-    name: 'msgBubble'
+    name: 'msgBubble',
+    props:['init'],
+    data:function () {
+        return {
+            val:this.init||0,
+        }
+    },
+    methods:{
+        tapBubble($event){
+            this.$emit("tapBubble",$event);
+            console.log("tapBubble");
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
     @import "../../style/mixin";
 
-    .bubble-container{
-        @include absolute(-10%,56%);
-        @include wh(0.18rem,0.18rem);
-        font-weight:100;
-        @include font(0.12rem,$white,center,$line-height:0.18rem);
-        @include borderRadius(50%);
-        background: $red;
-        
+    .msg-bubble{
+            position: absolute;
+            @include absolute(-10%,54%);
+            height: 0.18rem;
+            line-height: 0.18rem;
+            min-width: 0.18rem;
+            max-width: 0.4rem;
+            overflow: hidden;
+            @include borderRadius(0.2rem); 
+            background: $red;
+            color: $white;
+            padding: 0 4%;
+            font-size: 0.12rem;
     }
+
+
 
 </style>

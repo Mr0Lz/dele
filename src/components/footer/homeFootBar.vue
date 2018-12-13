@@ -15,6 +15,7 @@
                 <span>购物袋</span>
             </section>
             <section :class="$route.path.indexOf('personal') !== -1 ? 'foot-active' : '' "  @click="goPath('/personal')">
+                <msgBubble  max="999" min="1" init="1"  class="item-bubble"></msgBubble>
                 <svg class="icon">
                     <use xlink:href="#person"></use>
                 </svg>
@@ -24,12 +25,17 @@
     </footer>
 </template>
 <script>
+import msgBubble from '@/components/msgBubble/msgBubble'
+
 export default {
     name:'homeFootBar',
     methods:{
         goPath(path){
             this.$router.push(path);
         }
+    },
+    components:{
+        msgBubble
     }
 }
 </script>
@@ -48,6 +54,7 @@ export default {
         @include flex(center,center);
         @include wh(100%,0.49rem);
         > section {
+            position: relative;
             flex: 1;
             @include font(0.12rem,center);
             text-align: center;
