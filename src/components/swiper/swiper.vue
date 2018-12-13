@@ -6,7 +6,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
 
-          <div :class="['swiper-slide',{'hidden-slide':!imgReady}]" :key="index"  v-for=" (item ,index) in list" @click="clickSwiper($event,item.path)">
+          <div :class="['swiper-slide',{'hidden-slide':!imgReady}]" :key="index"  v-for=" (item ,index) in list" @click="clickSwiper($event,item)">
             <img  :src="item.imgUrl || defualtImg" alt="">
           </div>
 
@@ -74,8 +74,13 @@ export default {
     loading
   },
   methods:{
-    clickSwiper:function($event,path){
-      console.log($event,path)
+    clickSwiper:function($event,item){
+      console.log($event,item);
+      if(item.thirdParty&&item.toPath){
+        window.location.href=item.toPath;
+      }else{
+        this.$router.push(item.toPath);
+      }
     }
   }
 }

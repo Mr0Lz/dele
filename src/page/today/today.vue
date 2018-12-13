@@ -52,7 +52,10 @@ export default {
                     imgUrl:'https://lz-dele.netlify.com/static/img/image2.96618e2.jpg',//否则使用 直接使用静态服务器的路径
                     toPath:'./productDetails?id=2'  
                 },
-                {}//使用默认图片
+                {
+                    toPath:'https://www.baidu.com',
+                    thirdParty:true
+                }//使用默认图片
             ],
             commodityList:[
                 {
@@ -95,6 +98,7 @@ export default {
         },
         selectCommodity($event,commodityId){
             console.log($event,commodityId);
+            this.$router.push('./productDetails?id='+commodityId);
         }
     }
 }

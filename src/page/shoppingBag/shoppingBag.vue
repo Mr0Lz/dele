@@ -187,12 +187,12 @@ export default {
         {
         if (xmlhttp.readyState==4 && xmlhttp.status==200)
             {
-                that.commodityArr.push({text:xmlhttp.responseText});
+                console.log(xmlhttp.responseText);
             }
         }
         //xmlhttp.open("GET","http://dele-server-dele-server.1d35.starter-us-east-1.openshiftapps.com/pagecount",true);
-        //xmlhttp.open("GET","http://127.0.0.1:8080/pagecount",true);
-        //xmlhttp.send();
+        xmlhttp.open("GET","/t",true);
+        xmlhttp.send();
     },
     components:{
         headNav,
