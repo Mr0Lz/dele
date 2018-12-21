@@ -1,5 +1,5 @@
 <template>
-    <section :class=" 'round avatar-'+avatarSize " @click="onAvatarTap">
+    <section class="round" @click="onAvatarTap">
         <img :src="imgSrc ? imgSrc : defaultImg " alt="">
     </section>
 </template>
@@ -13,13 +13,7 @@ export default {
         }
     },
     props:{
-        size:String,
         imgSrc:String
-    },
-    computed:{
-        avatarSize () {
-            return this.size.trim();
-        }
     },
     methods: {
         onAvatarTap($event){
@@ -35,14 +29,6 @@ export default {
         overflow: hidden;
         background: $mediumGray;
     }
-    .avatar-s{
-        @include wh(0.3rem,0.3rem);
-    }
-    .avatar-m{
-        @include wh(0.6rem,0.6rem);
-    }
-    .avatar-l{
-        @include wh(1rem,1rem);
-    }
+
 </style>
 

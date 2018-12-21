@@ -11,6 +11,9 @@ import './config/rem'
 import './config/svgSprite'
 //使用 store
 import store from './store'
+//全局注册vue自定义指令
+//import  directives from '@/directives'
+//Vue.use(directives);
 
 Vue.config.productionTip = false
 

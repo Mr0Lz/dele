@@ -10,7 +10,7 @@ const today = r => require.ensure([],() => r(require('@/page/today/today')),'tod
 const personal = r => require.ensure([],() => r(require('@/page/personal/personal')),'personal')
 const shoppingBag = r => require.ensure([],() => r(require('@/page/shoppingBag/shoppingBag')),'shoppingBag')
 const productDetails = r => require.ensure([],() => r(require('@/page/productDetails/productDetails')),'productDetails')
-
+const personalInfo = r=> require.ensure([],() => r(require('@/page/personal/personalInfo')),'personalInfo')
 
 Vue.use(Router)
 
@@ -34,12 +34,12 @@ export default new Router({
     {
       path: '/personal',
       name: 'personal',
-      component: personal,
-      children:[
-        {
-          path: '/info',
-        }
-      ]
+      component: personal
+    },
+    {
+      path: '/personalInfo',
+      name: 'personalInfo',
+      component: personalInfo
     },
     {
       path: '/productDetails',

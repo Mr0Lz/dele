@@ -6,7 +6,7 @@
             <div class="h-1 m-r m-l">
                 今日推荐
                 <div class="today-avatar right">
-                    <avatar size="s" imgSrc="static/avatar.jpg" @onAvatarTap="onAvatarTap"></avatar>
+                    <avatar class="avatar-s" imgSrc="static/avatar.jpg" @onAvatarTap="onAvatarTap"></avatar>
                 </div>
             </div>
             <!-- 轮播 -->

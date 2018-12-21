@@ -7,12 +7,12 @@
 
             <!-- 头像和个人信息 -->
             <div class="personal-avatar clear">
-                <avatar size="m" class="left m-l m-r"></avatar>
+                <avatar class="left m-l m-r avatar-m"></avatar>
                 <div class="personal-info left">
                     <p class="personal-name">Pro9ice</p>
                     <p class="personal-authorize">已绑定微信</p>
                 </div>
-                <router-link  to="/personal" class="personal-setting right m-r">资料设置</router-link>
+                <router-link  to="/personalInfo" class="personal-setting right m-r">资料设置</router-link>
             </div>
 
             <!-- 我的订单  -->

@@ -1,3 +1,5 @@
+@import "./mixin";
+
 body,div,span,header,footer,nav,section,aside,article,ul,dl,dt,dd,li,a,p,h1,h2,h3,h4,h5,h6,i,b,textarea,button,input,select,figure,figcaption{
     padding: 0;
     margin: 0;
@@ -114,4 +116,13 @@ html,body,#app,.page-container{
 .h-2{
     font-size: 0.16rem;
     font-weight:400;
+}
+.avatar-s{
+    @include wh(0.3rem,0.3rem);
+}
+.avatar-m{
+    @include wh(0.6rem,0.6rem);
+}
+.avatar-l{
+    @include wh(1rem,1rem);
 }
