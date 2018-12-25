@@ -1,9 +1,10 @@
 <template>
     <section class="round" @click="onAvatarTap">
-        <img :src="imgSrc ? imgSrc : defaultImg " alt="">
+        <img  v-autofix  :src="imgSrc ? imgSrc : defaultImg " alt="">
     </section>
 </template>
 <script>
+import autofix from '@/directives/autofix'
 
 export default {
     name: 'avatar',
@@ -19,7 +20,10 @@ export default {
         onAvatarTap($event){
             this.$emit('onAvatarTap',$event);
         }
-    }
+    },
+    directives:{ //局部注册vue自定义指令
+        autofix
+    },
 }
 </script>
 <style lang="scss" scoped>

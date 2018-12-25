@@ -3,8 +3,8 @@
     <section class="choose">
         <label class="choose-label" >
             <slot name="input"></slot>
-            <img class="choose-icon" :src="iconType" alt="">
-            <img class="choose-act-icon" :src="actType" alt="">
+            <img :src="iconType" alt="">
+            <img :src="actIconType" alt="">
             <slot></slot>
         </label>                        
     </section>
@@ -12,19 +12,22 @@
 </template>
 
 <script>
-import selet from "@/images/selet.png"
+import select from "@/images/select.png"
 import none from "@/images/none.png"
+import remove_fill from "@/images/remove_fill.png"
+import select_fill from "@/images/select_fill.png"
+import remove from "@/images/remove.png"
 
 export default {
     name: 'choose',
     props:[
-        'icon',//none remove-fill remove selet-fill selet
-        'actIcon',//none remove-fill remove selet-fill selet
+        'icon',//none remove-fill remove select-fill select
+        'actIcon',//none remove-fill remove select-fill select
     ],
     data(){
         return {
-            iconType: this.icon || none,
-            actType: this.actIcon || selet,
+            iconType:this.icon || none,
+            actIconType:this.actIcon || select
         }
     }
 }
@@ -34,30 +37,17 @@ export default {
     @import '../../style/mixin';
 
     .choose{
-        .choose-icon,.choose-act-icon{
-            display: block;
-            @include wh(0.18rem,0.18rem);
-            @include ct();
-        }
-        .choose-act-icon{
-            display: none;
-        }
-        .choose-label{
-            position: relative;         
-            display: block;
-        }
+            .choose-label input{
+                opacity: 0;
+            }
+            .choose-label input + img,.choose-label input:checked + img ~ img{
+                @include wh(0.18rem,0.18rem);
+                vertical-align: sub;
+                display: inline-block;
+            }
 
-        .choose-label input{
-            display:none
-        }
-
-        .choose-label input:checked + .choose-icon  {
-            display: none;
-        }
-        //uc 对  .choose-input:checked + .choose-icon + .choose-act-icon 不生效
-        .choose-label input:checked + .choose-icon ~ .choose-act-icon {
-            display: block; 
-        }
-
+            .choose-label input + img ~ img,.choose-label input:checked + img{
+                display: none;
+            }
     }
 </style>

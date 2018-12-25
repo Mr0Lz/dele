@@ -12,6 +12,8 @@
 <script>
 import { removeClass,addClass } from "@/config/mUtils"
 
+
+
 export default {
     name:'slideDelete',
     props:{

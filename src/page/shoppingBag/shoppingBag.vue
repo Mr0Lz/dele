@@ -6,10 +6,10 @@
 
             <div class="h-1 m-l m-r">购物袋</div>
 
-            <div class="commodity-list m-t" v-if="commodityArr.length&&$route.query.flage==1"  ref="commodityList">
+            <div v-triggeroutside:touchstart="touchOutside" class="commodity-list m-t" v-if="commodityArr.length&&$route.query.flage==1" >
 
 
-                <slide-delete class="commodity-item"  v-for=" (item,index) in commodityArr" :i="index"   :key="index"   @slideDelete="slideDelete" >
+                <slide-delete  ref="slideItem" class="commodity-item"  v-for=" (item,index) in commodityArr" :i="index"   :key="index"   @slideDelete="slideDelete" >
                     <div slot="slide-container"   class="m-l">
                         <choose class="choose-commodity left"  >
                             <input type="checkbox" slot="input"  @click="chooseItem($event,item)" v-model="checkedArr" :value="item">
@@ -67,7 +67,8 @@
         <home-foot-bar>
             <div slot="totalPrice" class="total-price">
                 <choose class="left m-l checked-all">
-                    <input type="checkbox"   slot="input" @click="chooseAll" v-model="allChecked"  >全选
+                    <input type="checkbox"   slot="input" @click="chooseAll" v-model="allChecked"  >
+                    <span>全选</span>
                 </choose>
                 <div class="right price">
                     ¥{{totalPrice}}
@@ -83,6 +84,7 @@ import homeFootBar from '@/components/footer/homeFootBar'
 import slideDelete from '@/components/slideDelete/slideDelete'
 import choose from "@/components/choose/choose"
 import quantity from "@/components/quantity/quantity"
+import triggeroutside from '@/directives/triggeroutside'
 
 
 export default {
@@ -210,7 +212,6 @@ export default {
         },
         slideDelete(slideItem,i){
             let that=this;
-            //this.$refs.commodityList.removeChild(slideItem);
             console.log(slideItem,i);
             let removeItem=that.commodityArr.splice(i,1);
             that.checkedArr.forEach(function(item,index){
@@ -225,7 +226,17 @@ export default {
         },
         invalidClear(){
             this.invalidArr=[];
+        },
+        touchOutside($event,vnode){
+            //父亲组件调用子元素方法
+            //左滑动点击其他区域复位
+            console.log('复位');
+            //vnode.children[0].child.reposition();
+            this.$refs.slideItem[0].reposition();
         }
+    },
+    directives:{
+        triggeroutside
     }
 }
 </script>
@@ -239,9 +250,9 @@ export default {
             font-size: 0.16rem;
             border-top: 0.01rem solid $lightGray;
             line-height: 0.50rem;
-            .checked-all{
-                color: $gray;
-                text-indent: 0.28rem;
+            .checked-all span{
+               padding-left: 0.2rem;
+               color: $gray;
             }
             .price{
                 color: $red;
@@ -249,7 +260,6 @@ export default {
             }
         }
         .choose-commodity{
-            @include wh(0.18rem,0.18rem);
             margin-top: 0.46rem;
         }
         .commodity-name{
@@ -308,9 +318,7 @@ export default {
                 }
                 .nothing-link{
                     margin: 0 auto;
-                    @include btn($c:$mediumGray,$border:0.01rem solid $mediumGray,$w:0.6rem,
-
-$h:0.24rem,$lh:0.24rem,$fsz:0.12rem,$align:center,$r:0.03rem);
+                    @include btn($c:$mediumGray,$border:0.01rem solid $mediumGray,$w:0.6rem,$h:0.24rem,$lh:0.24rem,$fsz:0.12rem,$align:center,$r:0.03rem);
                 }
             }
         }

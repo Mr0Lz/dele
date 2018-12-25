@@ -14,15 +14,29 @@ body,div,span,header,footer,nav,section,aside,article,ul,dl,dt,dd,li,a,p,h1,h2,h
     -webkit-tap-highlight-color: transparent; //（移动端上）有事件监听的元素被点击的时候会被高亮显示，比如我的android上表现为一个蓝框加上半透明的背景
     -webkit-font-smoothing: antialiased; //对字体进行抗锯齿渲染
 //解决长按弹出复制全选    
-    -webkit-touch-callout:none;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;	
-    user-select:none;
+    // -webkit-touch-callout:none;
+    // -webkit-user-select:none;
+    // -moz-user-select:none;
+    // -ms-user-select:none;	
+    // user-select:none;
     &:hover{
         outline: none;
     }
 }
+//input text placeholder属性颜色
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: $mediumGray;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: $mediumGray;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: $mediumGray; 
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: $mediumGray; 
+}
+
 
 // ::-webkit-scrollbar — 整个滚动条.
 // ::-webkit-scrollbar-button — 滚动条上的按钮 (上下箭头).
@@ -116,6 +130,9 @@ html,body,#app,.page-container{
 .h-2{
     font-size: 0.16rem;
     font-weight:400;
+}
+.inline-block{
+    display: inline-block;
 }
 .avatar-s{
     @include wh(0.3rem,0.3rem);
