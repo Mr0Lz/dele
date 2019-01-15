@@ -55,6 +55,11 @@ textarea{
     outline: none;
 }
 
+input[type='file']{
+    opacity: 0;
+    @include wh(0,0);    
+}
+
 .clear{
     zoom:1;
 }

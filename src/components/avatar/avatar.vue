@@ -1,6 +1,6 @@
 <template>
     <section class="round" @click="onAvatarTap">
-        <img  v-autofix  :src="imgSrc ? imgSrc : defaultImg " alt="">
+        <img  v-autofix  :src="src" alt="">
     </section>
 </template>
 <script>
@@ -10,7 +10,7 @@ export default {
     name: 'avatar',
     data(){
         return {
-            defaultImg:'static/avatar.jpg'
+            src:this.imgSrc || 'static/avatar.jpg' 
         }
     },
     props:{

@@ -8,15 +8,16 @@ module.exports={
             if(el.contains(event.target)){
                 return false;
             }
-            //指令的值
-            if(binging.expression){
-                binging.value(event,vnode);
-            }
+
         }
 
         el.__vueClickOutside__ = documentHandler;
         document.addEventListener(binging.arg, documentHandler);
 
+        //指令的值
+        if(binging.expression){
+            binging.value(event,vnode);
+        }
     },
     unbind(el,binging,vnode){
         console.log('unbind');
