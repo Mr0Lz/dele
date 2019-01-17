@@ -22,7 +22,7 @@ const bindHelp = r => require.ensure([],() => r(require('@/page/phoneOperation/b
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',//去掉域名后面的/#/,这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面 使用真正的url 不使用 hash 模式 
+  //mode: 'history',//去掉域名后面的/#/,不可以静态显示,这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面 使用真正的url 不使用 hash 模式 
   routes: [
     {
       path: '/test',
@@ -45,6 +45,11 @@ export default new Router({
       component: shoppingBag
     },
     {
+      path: '/productDetails',
+      name: 'productDetails',
+      component: productDetails
+    },
+    {
       path: '/personal',
       name: 'personal',
       component: personal
@@ -53,11 +58,6 @@ export default new Router({
       path: '/personalInfo',
       name: 'personalInfo',
       component: personalInfo
-    },
-    {
-      path: '/productDetails',
-      name: 'productDetails',
-      component: productDetails
     },
     {
       path: '/phone/help',//优先级比'/phone/:type'高,放前面,

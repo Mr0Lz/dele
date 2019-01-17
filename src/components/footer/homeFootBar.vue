@@ -2,19 +2,19 @@
     <footer class="footer-bar">
         <slot name="totalPrice"></slot>
         <section class="home-bar">
-            <section :class="$route.path.indexOf('today') !== -1 ? 'foot-active' : '' " @click="goPath('/today')">
+            <section :class="$route.path.indexOf('today') !== -1 ? 'foot-active' : '' " @click="$router.push('/today')">
                 <svg class="icon">
                     <use xlink:href="#today"></use>
                 </svg>
                 <span>今日</span>
             </section>
-            <section :class="$route.path.indexOf('shoppingBag') !== -1 ? 'foot-active' : '' "  @click="goPath('/shoppingBag')">
+            <section :class="$route.path.indexOf('shoppingBag') !== -1 ? 'foot-active' : '' "  @click="$router.push('/shoppingBag')">
                 <svg class="icon">
                     <use xlink:href="#bag"></use>
                 </svg>
                 <span>购物袋</span>
             </section>
-            <section :class="$route.path.indexOf('personal') !== -1 ? 'foot-active' : '' "  @click="goPath('/personal')">
+            <section :class="$route.path.indexOf('personal') !== -1 ? 'foot-active' : '' "  @click="$router.push('/personal')">
                 <msgBubble  max="999" min="1" init="1"  class="item-bubble"></msgBubble>
                 <svg class="icon">
                     <use xlink:href="#person"></use>
@@ -29,11 +29,6 @@ import msgBubble from '@/components/msgBubble/msgBubble'
 
 export default {
     name:'homeFootBar',
-    methods:{
-        goPath(path){
-            this.$router.push(path);
-        }
-    },
     components:{
         msgBubble
     }
