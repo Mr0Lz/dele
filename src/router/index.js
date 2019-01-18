@@ -18,6 +18,8 @@ const productDetails = r => require.ensure([],() => r(require('@/page/productDet
 const personalInfo = r => require.ensure([],() => r(require('@/page/personal/personalInfo')),'personalInfo')
 const phoneOperation = r => require.ensure([],() => r(require('@/page/phoneOperation/phoneOperation')),'phoneOperation')
 const bindHelp = r => require.ensure([],() => r(require('@/page/phoneOperation/bindHelp')),'bindHelp')
+const resultPage = r => require.ensure([],() => r(require('@/page/resultPage/resultPage')),'resultPage')
+const about = r => require.ensure([],() => r(require('@/page/about/about')),'about')
 
 Vue.use(Router)
 
@@ -45,6 +47,11 @@ export default new Router({
       component: shoppingBag
     },
     {
+      path: '/about',
+      name: 'about',
+      component: about
+    },
+    {
       path: '/productDetails',
       name: 'productDetails',
       component: productDetails
@@ -58,6 +65,11 @@ export default new Router({
       path: '/personalInfo',
       name: 'personalInfo',
       component: personalInfo
+    },
+    {
+      path: '/result',
+      name: 'resultPage',
+      component: resultPage,
     },
     {
       path: '/phone/help',//优先级比'/phone/:type'高,放前面,

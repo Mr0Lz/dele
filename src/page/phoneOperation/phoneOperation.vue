@@ -3,8 +3,8 @@
         <head-nav :title="pageTitle" :goback="true"></head-nav>
         <section class="phoneOperation-container">
             
-            <p class="bind-prompt m-t" v-if=" topPrompt != '' ">{{topPrompt}}</p>
-            <p class="h-1 m-l m-t" v-if=" title != '' " >{{title}}</p>
+            <p class="bind-prompt m-t" v-if="topPrompt">{{topPrompt}}</p>
+            <p class="h-1 m-l m-t" v-if="title" >{{title}}</p>
             
             <div class="input-container m-l m-r m-t">
 
@@ -24,8 +24,8 @@
             </div>
             <p class="bind-notice mediumGray  m-l m-t" v-for=" (item,index) in bindNotice "  v-if=" index == 0 "  :key="index" >{{item}}</p>
             <p class="bind-notice mediumGray  m-l" v-else  :key="index" >{{item}}</p>
-            <div class="bind-btn m-t m-l" v-if=" bindBtn != '' " @click="submitCall" >{{bindBtn}}</div>
-            <div class="bind-help m-t" v-if=" bindHelp "  @click="$router.push({path:'/phone/help'})">遇到问题？</div>
+            <div class="bind-btn m-t m-l" v-if="bindBtn" @click="submitCall" >{{bindBtn}}</div>
+            <div class="bind-help m-t" v-if="bindHelp"  @click="$router.push({path:'/phone/help'})">遇到问题？</div>
         </section>
 
     </section>
