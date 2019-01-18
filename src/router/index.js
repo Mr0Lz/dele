@@ -20,6 +20,7 @@ const phoneOperation = r => require.ensure([],() => r(require('@/page/phoneOpera
 const bindHelp = r => require.ensure([],() => r(require('@/page/phoneOperation/bindHelp')),'bindHelp')
 const resultPage = r => require.ensure([],() => r(require('@/page/resultPage/resultPage')),'resultPage')
 const about = r => require.ensure([],() => r(require('@/page/about/about')),'about')
+const protocol = r => require.ensure([],() => r(require('@/page/about/protocol')),'protocol')
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: about
+    },
+    {
+      path: '/about/protocol',
+      name: 'protocol',
+      component: protocol
     },
     {
       path: '/productDetails',

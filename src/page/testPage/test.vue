@@ -5,6 +5,7 @@
         </svg>
         <router-link to="/phone/bind">绑定手机</router-link>
         <router-link to="/about">关于我们</router-link>
+        <router-link to="/about/protocol">协议</router-link>
         <router-link to="/phone/change">更换手机</router-link>
         <router-link to="/phone/examine">验证手机</router-link>
         <router-link to="/shoppingBag?flage=1&invalid=1">购物车</router-link>

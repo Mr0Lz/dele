@@ -30,7 +30,7 @@ export default {
         return {
             linkArr:[{
                 text: '服务协议',
-                href: '/'
+                href: '/about/protocol'
             },{
                 text: '绑定手机遇到问题',
                 href: '/phone/help'
