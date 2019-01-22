@@ -3,6 +3,7 @@
         <svg class="logo">
             <use xlink:href="#logo"></use>
         </svg>
+        <star :len="5" :score="0" :val="1" ></star>        
         <router-link to="/phone/bind">绑定手机</router-link>
         <router-link to="/about">关于我们</router-link>
         <router-link to="/about/protocol">协议</router-link>
@@ -19,12 +20,18 @@
 </template>
 
 <script>
+import star from '@/components/star/star'
+
 export default {
-    name : 'test'
+    name : 'test',
+    components : {
+        star
+    }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import '../../style/mixin.scss';
     .logo{
         display: block;
         width: 1rem;
