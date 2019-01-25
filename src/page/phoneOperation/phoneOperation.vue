@@ -108,6 +108,7 @@ export default {
      @include hr();
 
     .phoneOperation-container{
+            font-size: 0.16rem;        
         .bind-prompt,.bind-help{
             font-size: 0.16rem;
             color: $gray;
@@ -117,7 +118,7 @@ export default {
             color : $mediumGray;
         }
         .input-container{
-            font-size: 0.16rem;
+            input{font-size: 0.16rem; }
             .input-item{
                 padding: 0.15rem 0;
                 .inp-btn{

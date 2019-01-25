@@ -21,11 +21,15 @@
 
 <script>
 import star from '@/components/star/star'
+import  '@/plugins/layer.js'
 
 export default {
     name : 'test',
     components : {
         star
+    },
+    mounted () {
+        console.log(new Layer());
     }
 }
 </script>

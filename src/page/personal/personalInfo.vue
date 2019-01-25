@@ -1,7 +1,7 @@
 <template>
 
     <section class="personal page-container">
-        <head-nav :goback="true" ></head-nav>
+        <head-nav title="个人资料" :goback="true" ></head-nav>
 
         <avatar class="m-t avatar avatar-l" ref="avatar" :imgSrc="imgSrc" ></avatar>
 
@@ -28,13 +28,25 @@
             </div>
             <hr>
             <div class="info-item"><span class="item-title mediumGray">手机</span>
-                <input  placeholder="无" v-model.number="telephone" type="number" >
+                <input v-if=" !isBindPhone "  placeholder="无" v-model.number="telephone" type="number" style="width:1.4rem;" >
+                <span v-else style="display:inline-block;width:1.4rem;">15569336954</span>
+                <router-link v-if=" !isBindPhone " class="mediumGray bind-btn" to="/phone/bind">绑定手机</router-link>
+                <router-link v-else class="mediumGray bind-btn" to="/phone/change">更改手机</router-link>
             </div>
             <hr>
             <div class="info-item"><span class="item-title mediumGray">生日</span>
                 <input type="text" id="datePicker" @click="showDatePicker" placeholder="请选择">
             </div>
         </section>
+
+        <div class="submit-btn" @click="submit" >提交</div> 
+
+        <!-- 绑定手机弹框内容 -->
+        <div ref="bindLayer" style="display:none">
+            <div style="background:red">
+            bindLayer
+            </div>
+        </div>	
 
     </section>
 
@@ -53,7 +65,8 @@ export default {
     data:function (){
         return {
             telephone:"",
-            imgSrc:"static/mangguo.png"
+            imgSrc:"static/mangguo.png",
+            isBindPhone:false
         }
     },
     components:{
@@ -88,6 +101,9 @@ export default {
                         nowValue.value = val;
                     }
                 });
+        },
+        submit($event){
+   
         }
     }
 }
@@ -100,6 +116,16 @@ export default {
 
     .personal{
         font-size: 0.16rem;
+
+
+        .submit-btn{
+            margin: 0.3rem auto 0.3rem auto;
+            @include btn($bgc:$blue,$c:$white,$border:0.01rem solid $blue,$w:3.18rem,$h:0.38rem,$lh:0.4rem,$fsz:0.16rem,$align:center,$r:0.06rem);
+        }
+        .bind-btn{
+            padding-left: 0.1rem;
+            border-left: 0.01rem solid $lightGray; 
+        }
         input{
             font-size: 0.16rem;
         }
