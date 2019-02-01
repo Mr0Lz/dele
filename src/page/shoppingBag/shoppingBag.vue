@@ -264,12 +264,10 @@ export default {
         }
         .commodity-name{
             color: $black;
-            padding-left: 0.15rem;
         }
         .commodity-img{
             @include wh(0.8rem,0.8rem);
             @include borderRadius();
-            overflow: hidden;
         }
         li{
             padding-left: 0.15rem;

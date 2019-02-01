@@ -16,25 +16,43 @@
         <transition name="up">
             <layer v-if="showShoppingCart">
                 <div :class="['cart-content','cart-content-in']"  slot="layer-content">
+                    <div class="close-icon" @click="closeCar"></div>
+                    <div class="commodity" v-for=" (item,index) in commodityArr"    :key="index" >
+                            <div class="commodity-container m-t m-l">
+                                <div  class="commodity-img left">
+                                    <img  :src="item.imgUrl" alt="">
+                                </div>
+                                <ul class="left">
+                                    <li class="h-2 commodity-name">{{item.commodityName}}</li>
+                                    <li class="commodity-details">180g/盒; 五盒/套</li>
+                                    <li class="commodity-price">¥{{item.commodityPrice}}</li>
+                                </ul>
+                            </div>
+                            <hr>
+                        <span class="gray">数量：</span>
+                        <quantity @changeVal="changeVal(item,$event)"  maxVal="6" minVal="1" class="commodity-quantity right" :initVal="item.quantity"></quantity>
+                    </div>
                     <div class="cart-btn" @click="closeCar">确定</div>
                 </div>
             </layer>
-        </transition>       
-        <star :len="5" :score="0" :val="1" ></star>        
-        <span @click="showTestLayer">showTestLayer</span>  
-        <span @click="addShoppingCart">加入购物车</span>      
-        <router-link to="/phone/bind">绑定手机</router-link>
-        <router-link to="/about">关于我们</router-link>
-        <router-link to="/about/protocol">协议</router-link>
-        <router-link to="/phone/change">更换手机</router-link>
-        <router-link to="/phone/examine">验证手机</router-link>
-        <router-link to="/shoppingBag?flage=1&invalid=1">购物车</router-link>
-        <router-link to="/phone/help">绑定手机遇到问题</router-link>
-        <router-link to="/result?title=更改成功&btnText=查看个人资料&msg=手机号码更改成功&callBack=toPersonalInfo">更改成功</router-link>
-        <router-link to="/result?title=绑定成功&btnText=查看个人资料&msg=手机绑定成功&callBack=toPersonalInfo">手机绑定成功</router-link>
-        <router-link to="/result?title=商城&btnText=查看订单详情&msg=下单成功&details=已收到您的订单，我们会尽快安排配送 敬请您耐心等候&callBack=toPersonalInfo">下单成功</router-link>
-        <router-link to="/result?title=商城&btnText=订单详情&msg=评价成功&details=已收到您的宝贵评价，谢谢您， 我们会继续努力，做得更好。&callBack=toPersonalInfo">评价成功</router-link>
-        <router-link to="/result?title=商城&btnText=售后详情&msg=提交成功&details=抱歉，得乐的商品没能让您满意， 请放心，客服会尽快处理您的售后申请。&callBack=toPersonalInfo">提交成功</router-link>
+        </transition>     
+        <div class="link-box">
+            <star :len="5" :score="0" :val="1" ></star>        
+            <span @click="showTestLayer">showTestLayer</span>  
+            <span @click="addShoppingCart">加入购物车</span>      
+            <router-link to="/phone/bind">绑定手机</router-link>
+            <router-link to="/about">关于我们</router-link>
+            <router-link to="/about/protocol">协议</router-link>
+            <router-link to="/phone/change">更换手机</router-link>
+            <router-link to="/phone/examine">验证手机</router-link>
+            <router-link to="/shoppingBag?flage=1&invalid=1">购物车</router-link>
+            <router-link to="/phone/help">绑定手机遇到问题</router-link>
+            <router-link to="/result?title=更改成功&btnText=查看个人资料&msg=手机号码更改成功&callBack=toPersonalInfo">更改成功</router-link>
+            <router-link to="/result?title=绑定成功&btnText=查看个人资料&msg=手机绑定成功&callBack=toPersonalInfo">手机绑定成功</router-link>
+            <router-link to="/result?title=商城&btnText=查看订单详情&msg=下单成功&details=已收到您的订单，我们会尽快安排配送 敬请您耐心等候&callBack=toPersonalInfo">下单成功</router-link>
+            <router-link to="/result?title=商城&btnText=订单详情&msg=评价成功&details=已收到您的宝贵评价，谢谢您， 我们会继续努力，做得更好。&callBack=toPersonalInfo">评价成功</router-link>
+            <router-link to="/result?title=商城&btnText=售后详情&msg=提交成功&details=抱歉，得乐的商品没能让您满意， 请放心，客服会尽快处理您的售后申请。&callBack=toPersonalInfo">提交成功</router-link>
+        </div>  
     </section>
 </template>
 
@@ -43,6 +61,7 @@ import star from '@/components/star/star'
 import layer from '@/components/layer/layer'
 import '@/plugins/layer_mobile/need/layer.css'
 import layerMobile from '@/plugins/layer_mobile/layer.js'
+import quantity from "@/components/quantity/quantity"
 
 export default {
     name : 'test',
@@ -50,11 +69,27 @@ export default {
         return {
             showLayer:false,
             showShoppingCart:false,
+            commodityArr:[
+                // {
+                //     commodityId:'1',
+                //     commodityName:'芒果酸奶1',
+                //     imgUrl:'static/mangguo.png',
+                //     commodityPrice:'122.00',
+                //     quantity:0
+                // },
+                {
+                    commodityId:'2',
+                    commodityName:'芒果酸奶2',
+                    imgUrl:'static/mangguo.png',
+                    commodityPrice:'123.00',
+                    quantity:7
+                }]
         }
     },
     components : {
         star,
-        layer
+        layer,
+        quantity
     },
     methods : {
         closeLayer(){
@@ -65,12 +100,16 @@ export default {
         },
         closeCar($event){
             let content=$event.target.parentNode;
-            console.log(content.className+=' cart-content-out');
+            content.className+=' cart-content-out'//添加关闭动画
             this.showShoppingCart = false;
         },
         addShoppingCart(){
             this.showShoppingCart = true;
-        }
+        },
+        changeVal(item,val){
+            console.log(item,val);
+           item.quantity=val;
+        },
     }
 }
 </script>
@@ -82,10 +121,12 @@ export default {
         width: 1rem;
         margin: 0 auto;
     }
-    a,span{
-        display: inline-block;
-        font-size: 16px;
-        margin: 10px;
+    .link-box{
+        a,span{
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+        }
     }
     .layer-content{
         position: relative;
@@ -117,11 +158,21 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
-        @include wh(100%,50%);
+        @include wh(100%,3.2rem);
         background: $white;       
         font-size: 0.16rem;
-        .cart-btn{
+        overflow: scroll;
+        padding-bottom:0.6rem; 
+        .close-icon{
+            @include wh(0.18rem,0.18rem);
             position: absolute;
+            right: 0.27rem;
+            top: 0.27rem;
+            background: url(../../images/remove_fill.png) no-repeat center;
+            background-size:100%; 
+        }
+        .cart-btn{
+            position: fixed;
             bottom: 0;
             left: 0;
             color: $white;
@@ -132,10 +183,10 @@ export default {
         }
     }
     .cart-content-in{
-        animation: zoomInUp 0.8s;
+        animation: zoomInUp 1.2s;
     }
     .cart-content-out{
-        animation: zoomOutDown 0.8s;
+        animation: zoomOutDown 1.2s;
     }
     .fade-enter-active, .fade-leave-active,.up-enter-active, .up-leave-active {
         transition: all 0.8s;
@@ -193,4 +244,47 @@ to {
 	animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
 }
 }
+
+
+/* 商品详情---加入购物车 */
+    @include hr();
+    .commodity{
+        font-size: 0.12rem;
+       .commodity-container{
+           overflow: hidden;
+           margin-bottom: 0.15rem;
+        }
+      .commodity-name{
+            color: $black;
+            padding-left: 0.15rem;
+        }
+        .commodity-img{
+            @include wh(0.8rem,0.8rem);
+            @include borderRadius();
+        }
+        li{
+            padding-left: 0.15rem;
+            color: $gray;
+        }
+        .commodity-details{
+            padding-top:0.05rem;
+            padding-bottom: 0.19rem; 
+        }
+        .commodity-quantity{
+            margin-top: 0.15rem;
+            margin-right: 0.28rem;
+        }
+        .gray{
+            padding: 0.15rem 0 0 0.28rem;
+            display: inline-block;
+            font-size: 0.16rem;
+            color: $gray;
+        }
+        .commodity-price{
+            color: $red;
+            font-size: 0.16rem;
+        }
+
+    }
+
 </style>
