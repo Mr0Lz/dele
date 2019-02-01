@@ -28,11 +28,6 @@ export default new Router({
   //mode: 'history',//去掉域名后面的/#/,不可以静态显示,这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面 使用真正的url 不使用 hash 模式 
   routes: [
     {
-      path: '/test',
-      name: 'test',
-      component: test
-    },
-    {
       path: '/',
       name: 'home',
       redirect: '/today'//默认首页:重定向至today页面
@@ -41,6 +36,11 @@ export default new Router({
       path: '/today',
       name: 'today',
       component: today
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: test
     },
     {
       path: '/shoppingBag',

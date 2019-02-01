@@ -47,7 +47,9 @@ export default {
                         // property map - maps over children with mod function
                         shape: [ 'circle', 'polygon' ],
                         // property map - maps over children with mod function
-                        fill:  [ '#333', 'magenta', 'purple' ],
+                        //fill:  [ '#333', 'magenta', 'purple' ],
+                        //fill: ['#3791FA','#E7290F','#5CB531'],
+                        fill : ['#FCCE00'],
                         angle: { 0: 360 },
                         // rand string - generates random value for every child rand( min, max )
                         degreeShift: 'rand(-360, 360)',

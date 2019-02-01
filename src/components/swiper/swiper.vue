@@ -86,7 +86,7 @@ export default {
 }
 </script>
 
-<style  lang="scss">
+<style  lang="scss" scoped>
 @import '../../style/mixin';
 
 .swiper {
@@ -113,9 +113,12 @@ export default {
         opacity: 0;
       }
     }
+}
+</style>
 
+<style>
     .swiper-pagination-bullet-active {
       background: #000;
     }
-}
 </style>
+
