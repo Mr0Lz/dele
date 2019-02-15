@@ -62,8 +62,6 @@
 import loading from '@/components/loading/loading'
 import star from '@/components/star/star'
 import layer from '@/components/layer/layer'
-import '@/plugins/layer_mobile/need/layer.css'
-import layerMobile from '@/plugins/layer_mobile/layer.js'
 import quantity from "@/components/quantity/quantity"
 
 export default {
