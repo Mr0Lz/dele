@@ -1,5 +1,6 @@
 <template>
     <section>
+        <loading style="width:0.6rem;"></loading>
         <svg class="logo">
             <use xlink:href="#logo"></use>
         </svg>
@@ -37,7 +38,8 @@
             </layer>
         </transition>     
         <div class="link-box">
-            <star :len="5" :score="0" :val="1" ></star>        
+            <star :len="5" :score="0" :val="1" ></star>
+            <router-link to="/myOrder">我的订单</router-link>     
             <span @click="showTestLayer">showTestLayer</span>  
             <span @click="addShoppingCart">加入购物车</span>      
             <router-link to="/phone/bind">绑定手机</router-link>
@@ -57,6 +59,7 @@
 </template>
 
 <script>
+import loading from '@/components/loading/loading'
 import star from '@/components/star/star'
 import layer from '@/components/layer/layer'
 import '@/plugins/layer_mobile/need/layer.css'
@@ -89,7 +92,8 @@ export default {
     components : {
         star,
         layer,
-        quantity
+        quantity,
+        loading
     },
     methods : {
         closeLayer(){

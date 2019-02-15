@@ -6,15 +6,30 @@ export const addClass = (ele,cls) => {
 //删除class
 export const removeClass = (ele,cls) => {
     if (hasClass(ele, cls)) {
-        let reg = new RegExp("(\\s|^)" + cls + "(\\s|$)");
-        ele.className = ele.className.replace(reg, "");
+        let oldArr = ele.className.split(' ');
+        oldArr.splice(oldArr.indexOf(cls),1);
+        ele.className = oldArr.join(' ');
     }
 }
 
 //判断class是否存在
 export const hasClass = (ele,cls) =>{
-    return ele.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
+    try{
+        let oldArr = ele.className.split(' ');
+        if(oldArr.indexOf(cls)!=-1){
+            return true ;
+        }
+    }catch(e){
+        console.log(e);
+        return false;
+    }
+    return false;
 }
+//当前元素所有最终使用的CSS属性值
+export const elStyle = (el,fake) =>{
+   return el.currentStyle? el.currentStyle : window.getComputedStyle(el, fake);
+}
+
 
 //FileReader或者FormData(ajax上传) 生成预览图
 export const toPreviewer = (files,quality) =>{

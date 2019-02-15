@@ -21,6 +21,7 @@ const bindHelp = r => require.ensure([],() => r(require('@/page/phoneOperation/b
 const resultPage = r => require.ensure([],() => r(require('@/page/resultPage/resultPage')),'resultPage')
 const about = r => require.ensure([],() => r(require('@/page/about/about')),'about')
 const protocol = r => require.ensure([],() => r(require('@/page/about/protocol')),'protocol')
+const myOrder = r => require.ensure([],() => r(require('@/page/myOrder/myOrder')),'myOrder')
 
 Vue.use(Router)
 
@@ -88,6 +89,10 @@ export default new Router({
       component: phoneOperation,
       // children: [{path: 'help',component: bindHelp}]
     },
-
+    {
+      path: '/myOrder',
+      name: 'myOrder',
+      component: myOrder
+    }
   ]
 })

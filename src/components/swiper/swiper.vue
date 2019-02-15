@@ -1,5 +1,5 @@
 <template>
-    <section class="swiper margin">
+    <section class="swiper">
 
       <loading class="swiper-img-load" v-if="!imgReady"></loading>
 
