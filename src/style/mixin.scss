@@ -1,14 +1,12 @@
-$col191919:#191919;
-$col7F7F7F:#7F7F7F;
-$colE7290F:#E7290F;
-$colFFF:#FFF;
-$col111:#111;
-$colF2:#F2F2F2;
-$colFFFEEC:#FFFEEC;
-$col3791FA:#3791FA;
-$colCCC:#CCC;
-$colFCCE00:#FCCE00;
-$col5CB531:#5CB531;
+$black:#191919;
+$gray:#7F7F7F;
+$red:#E7290F;
+$white:#FFF;
+$lightGray:#F2F2F2;
+$blue:#3791FA;
+$mediumGray:#CCC;
+$yellow:#FCCE00;
+$green:#5CB531;
 
 @mixin bg($url,$sizew:100%,$sizeh:100%,$l:0,$t:0){
     background-image:url($url);
@@ -18,9 +16,9 @@ $col5CB531:#5CB531;
     background-repeat: no-repeat;
 }
 
-@mixin borderRadius($r) {
+@mixin borderRadius($r:0.12rem) {
     -webkit-border-radius: $r; 
-    border-radius: $r
+    border-radius: $r;
 }
 
 @mixin absolute($t,$l){
@@ -29,7 +27,7 @@ $col5CB531:#5CB531;
     left:$l;
 }
 
-@mixin wh($w,$h){
+@mixin wh($w:auto,$h:auto){
     width: $w;
     height: $h;
 }
@@ -59,19 +57,41 @@ $col5CB531:#5CB531;
             transform: translateX(-50%);
 }
 
-@mixin font($size,$c,$line-height:normal){
+@mixin font($size,$c:$black,$align:left,$line-height:normal){
     font-size: $size;
     line-height:$line-height;
+    text-align: $align;
     color:$c;
 }
 
-@mixin flex($type){
+@mixin flex($xtype:flex-start,$ytype:flex-start){
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: $type;
-    -webkit-justify-content: $type;
-        -ms-flex-pack: $type;
-            justify-content: $type;
+    justify-content: $xtype;
+    align-items: $ytype;
+}
+
+@mixin  btn($bgc:$white,$c:$blue,$border:0.01rem solid $blue,$w:3.18rem,$h:0.38rem,$lh:0.4rem,$fsz:0.16rem,$align:center,$r:0.06rem){
+    display: block;
+    background-color: $bgc;
+    border:$border;
+    width:$w;
+    height: $h;
+    @include font($fsz,$c,$align,$lh);
+    @include borderRadius($r);
+    -webkit-box-sizing: content-box; 
+    box-sizing: content-box;
+}   
+
+@mixin hr($w:3.2rem,$border:0.01rem solid $lightGray){
+   hr{
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: $w;
+    height: 0rem;
+    border: $border;
+   }
 }
