@@ -1,5 +1,8 @@
 <template>
     <section>
+        <p>企业名称:{{companyConfig.name}}</p>
+        <p>企业电话:{{companyConfig.telephone}}</p>
+        <p>企业logo:<img class="logo" :src="companyConfig.logo"></p>
         <loading style="width:0.6rem;"></loading>
         <svg class="logo">
             <use xlink:href="#logo"></use>
@@ -40,6 +43,7 @@
         <div class="link-box">
             <star :len="5" :score="0" :val="1" ></star>
             <router-link to="/myOrder">我的订单</router-link>     
+            <router-link to="/myOrder?hashnav=4">我的订单 待收货</router-link>  
             <span @click="showTestLayer">showTestLayer</span>  
             <span @click="addShoppingCart">加入购物车</span>      
             <router-link to="/phone/bind">绑定手机</router-link>
@@ -63,11 +67,14 @@ import loading from '@/components/loading/loading'
 import star from '@/components/star/star'
 import layer from '@/components/layer/layer'
 import quantity from "@/components/quantity/quantity"
+//企业信息
+import companyConfig from '@/config/companyConfig'
 
 export default {
     name : 'test',
     data : function (){
         return {
+            companyConfig:companyConfig,
             showLayer:false,
             showShoppingCart:false,
             commodityArr:[
@@ -118,6 +125,9 @@ export default {
 
 <style scoped lang="scss">
     @import '../../style/mixin.scss';
+    p{
+        font-size: 0.16rem;
+    }
     .logo{
         display: block;
         width: 1rem;

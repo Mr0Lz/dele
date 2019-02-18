@@ -37,15 +37,15 @@
 
             <div  id="pageContainer" class="swiper-container m-t-10">
                 <div class="swiper-wrapper">
-                    <div :class="['swiper-slide']" hashcontent="1">
+                    <div :class="['swiper-slide']" hashcontent="1">11
                     </div>
-                    <div :class="['swiper-slide']" hashcontent="2">
+                    <div :class="['swiper-slide']" hashcontent="2">22
                     </div>
-                    <div :class="['swiper-slide']" hashcontent="3">
+                    <div :class="['swiper-slide']" hashcontent="3">33
                     </div>
-                    <div :class="['swiper-slide']" hashcontent="4">
+                    <div :class="['swiper-slide']" hashcontent="4">44
                     </div>
-                    <div :class="['swiper-slide']" hashcontent="5">
+                    <div :class="['swiper-slide']" hashcontent="5">55
                     </div>
                 </div>
             </div>
@@ -75,7 +75,6 @@ export default {
         const that=this; 
         setTimeout(function(that){
 
-            that.setNav();       
             let line=document.querySelector('.line');            
             let container = document.querySelector('#topNav');
             container.addEventListener('touchstart', function(e) {//去掉按压阴影
@@ -85,11 +84,11 @@ export default {
                 that.touchMove(line,swiper,that.topNavSwiper);
             }); 
             that.topNavSwiper.on('TouchEnd',function(swiper, event){
+            // topNavSwiper.translate 对于有回弹的取值不准 必须transitionend事件之后获取,有点卡顿 改用setTimeout
                     setTimeout(function(){
                         that.touchRecover(line,that.topNavSwiper);
                     },0);
             }); 
-            // topNavSwiper.translate 对于有回弹的取值不准 必须transitionend事件之后获取,有点卡顿 改用setTimeout
             that.pageContainerSwiper.on('TouchMove',function(swiper, event){
                 that.touchMove(line,swiper,that.topNavSwiper);
             }); 
@@ -97,11 +96,11 @@ export default {
                 that.touchRecover(line,that.topNavSwiper);
             }); 
             that.topNavSwiper.on('tap', function(swiper, event) {
-                that.CenterAlignment(swiper,swiper.clickedIndex);
+                that.CenterAlignment(swiper,swiper.clickedIndex,{lineMove:true});
                 that.pageContainerSwiper.slideTo(swiper.clickedIndex);//联动   
 
             });
-        },370,that);
+        },0,that);
   },
   mounted () {
     //初始化swiper页面
@@ -117,7 +116,7 @@ export default {
         iOSEdgeSwipeDetection : true,//设置为true开启IOS的UIWebView环境下的边缘探测。如果拖动是从屏幕边缘开始则不触发swiper。
         noSwiping : true,//可以在slide上（或其他元素）增加类名'swiper-no-swiping'，使该slide无法拖动
         onSlideChangeStart: function(swiper){
-            that.CenterAlignment(that.topNavSwiper,swiper.activeIndex);
+            that.CenterAlignment(that.topNavSwiper,swiper.activeIndex,{lineMove:true});
         },
     });
 
@@ -129,61 +128,94 @@ export default {
         onInit: function(swiper){
                 //Swiper初始化了
             line.style.width=elStyle(swiper.slides[0]).width//下滑线 初始化长度
-            let active = document.querySelector('#topNav  .active');
         },
     });
+    
+    that.topNavSwiper.once('ReachBeginning',function(swiper){
+        //初始化 页面设置偏移
+        let active = document.querySelector('#topNav  .active');
+        let tabArr=document.querySelectorAll('[hashnav]');
+        let index =null;
+        for(let i=0; i<tabArr.length ;i++){
+            if(tabArr[i].getAttribute('hashnav')==active.getAttribute('hashnav')){
+                index=i;
+                break;
+            }
+        }
+       swiper.once('SetTranslate',function(s){
+            that.CenterAlignment(s,index,{type:'tran',wrapper:s.wrapper[0]});
+       });
 
+    });
+
+    that.setNav();
   },
   components:{
     loading,
     headNav
   },
   methods:{
-      CenterAlignment(swiper,index,fn){
+      CenterAlignment(swiper,index,opt){
+        opt=opt||{};
         let swiperWidth = swiper.container[0].clientWidth,
         maxTranslate = swiper.maxTranslate(),
         maxWidth = -maxTranslate + swiperWidth / 2;
         let slide = (Number(index).toString() != 'NaN') ? swiper.slides[index] : index,
         slideLeft = slide.offsetLeft,
         slideWidth = slide.clientWidth,
+        wrapper=opt.wrapper,
         slideCenter = slideLeft + slideWidth / 2;
-        swiper.setWrapperTransition(300);
-
+        if(opt.type!='tran'){
+            swiper.setWrapperTransition(300);
+        }
         if (slideCenter < swiperWidth / 2) {
-            swiper.setWrapperTranslate(0);
+            if(opt.type!='tran'){
+                swiper.setWrapperTranslate(0);
+            }else{
+                wrapper.style.transform='translate3d('+0+'px, 0px, 0px)';
+            }
 
         } else if (slideCenter > maxWidth) {
-            swiper.setWrapperTranslate(maxTranslate);
+            if(opt.type!='tran'){
+                swiper.setWrapperTranslate(maxTranslate);
+            }else{
+                wrapper.style.transform='translate3d('+maxTranslate+'px, 0px, 0px)'; 
+            }
 
         } else {
             let nowTlanslate = slideCenter - swiperWidth / 2;
-
-            swiper.setWrapperTranslate(-nowTlanslate);
+            if(opt.type!='tran'){
+                swiper.setWrapperTranslate(-nowTlanslate);
+            }else{
+                wrapper.style.transform='translate3d('+(-nowTlanslate)+'px, 0px, 0px)';
+            }
         }
-        let line=document.querySelector('.line'),active = document.querySelector('#topNav  .active');
-        removeClass(active,'active');
-        addClass(slide,'active');
-        line.style.width=elStyle(slide).width//下滑线 改变长度
-        //改变line的偏移,得加上swiper.translate居中后的距离
-        line.style.transform='translateX('+(slide.offsetLeft+swiper.translate)+'px)';
 
-        if(fn) fn(swiper,slide);
+        if(opt.lineMove){
+            let line=document.querySelector('.line'),active = document.querySelector('#topNav  .active');
+            removeClass(active,'active');
+            addClass(slide,'active');
+            line.style.width=elStyle(slide).width//下滑线 改变长度
+            //改变line的偏移,得加上swiper.translate居中后的距离
+            line.style.transform='translateX('+(slide.offsetLeft+swiper.translate)+'px)';
+        }
+
+
+        if(opt.fn) opt.fn(swiper,slide);
     },
     setNav(){
-        let hashnav=this.$route.query.hashnav,that=this,
+        let hashnav=this.$route.query.hashnav,that=this,wrapper,
             navTab=document.querySelector('[hashnav="'+hashnav+'"]');
             if(!hashnav&&!navTab){
                 return false;
             }
-        that.CenterAlignment(that.topNavSwiper,navTab,function(swiper,slide){
-            let contentArr=document.querySelectorAll('[hashcontent]');
-            for(let i=0; i<contentArr.length ;i++){
-                if(contentArr[i].getAttribute('hashcontent')==hashnav){
-                    that.pageContainerSwiper.slideTo(i);
-                    break;
-                }
+        let contentArr=document.querySelectorAll('[hashcontent]');
+        for(let i=0; i<contentArr.length ;i++){
+            if(contentArr[i].getAttribute('hashcontent')==hashnav){
+                that.pageContainerSwiper.slideTo(i);
+                break;
             }
-        });       
+        }
     },
     touchMove(line,swiper,topNavSwiper){
         let that=this;
@@ -216,7 +248,7 @@ export default {
             transition:all 0.3s ease;
             position: absolute;
             display: block;
-            left: 0;
+            left: 0.15rem;
             bottom: 0;
             height: 0.04rem;
             background: $black;
@@ -228,7 +260,7 @@ export default {
         overflow: hidden;
         font-size: 0.16rem;
         .swiper-slide {
-            //box-sizing: content-box;/*设置这个元素的width 就不包含 border padding margin*/
+            box-sizing: content-box;/*设置这个元素的width 就不包含 border padding margin*/
             width: auto;
             padding: 0.15rem;
             white-space: nowrap;
