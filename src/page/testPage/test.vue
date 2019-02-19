@@ -3,6 +3,10 @@
         <p>企业名称:{{companyConfig.name}}</p>
         <p>企业电话:{{companyConfig.telephone}}</p>
         <p>企业logo:<img class="logo" :src="companyConfig.logo"></p>
+        <p>网页可见区域宽：document.body.clientWidth{{clientWidth}}</p>
+        <p>网页可见区域宽：document.body.offsetWidth (包括边线的宽){{offsetWidth}}</p>
+        <p>屏幕分辨率的宽：window.screen.width{{width}}</p>
+        <p>屏幕可用工作区高度：window.screen.availWidth{{availWidth}}</p>
         <loading style="width:0.6rem;"></loading>
         <svg class="logo">
             <use xlink:href="#logo"></use>
@@ -74,6 +78,10 @@ export default {
     name : 'test',
     data : function (){
         return {
+            clientWidth:document.body.clientWidth,
+            offsetWidth:document.body.offsetWidth,
+            width:window.screen.width,
+            availWidth:window.screen.availWidth,
             companyConfig:companyConfig,
             showLayer:false,
             showShoppingCart:false,

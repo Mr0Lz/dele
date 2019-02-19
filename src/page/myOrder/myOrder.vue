@@ -4,7 +4,7 @@
         <head-nav title="我的得乐" :goback="true" ></head-nav>
 
         <section class="top-nav-container">
-            <div id="topNav" class="swiper-container">
+            <div id="topNav" class="swiper-container" @touchstart.stop="navTouchstart"  @touchmove.stop="navTouchmove">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide active" hashnav="1">全部</div>
                     <div class="swiper-slide" hashnav="2">待付款</div>
@@ -32,10 +32,10 @@
 
 
         <!-- 内容块 -->
-        <section class="page-swiper-container">
+        <section class="page-swiper-container m-t-10">
             <loading class="swiper-page-load" v-if="isReady"></loading>
 
-            <div  id="pageContainer" class="swiper-container m-t-10">
+            <div  id="pageContainer" class="swiper-container ">
                 <div class="swiper-wrapper">
                     <div :class="['swiper-slide']" hashcontent="1">11
                     </div>
@@ -68,54 +68,24 @@ export default {
     return {
       isReady: false,
       pageContainerSwiper:null,
-      topNavSwiper:null
+      topNavSwiper:null,
+      line:null,
+      lineInitL:0
     }
-  },
-  created(){
-        const that=this; 
-        setTimeout(function(that){
-
-            let line=document.querySelector('.line');            
-            let container = document.querySelector('#topNav');
-            container.addEventListener('touchstart', function(e) {//去掉按压阴影
-                e.preventDefault();
-            });
-            that.topNavSwiper.on('TouchMove',function(swiper, event){
-                that.touchMove(line,swiper,that.topNavSwiper);
-            }); 
-            that.topNavSwiper.on('TouchEnd',function(swiper, event){
-            // topNavSwiper.translate 对于有回弹的取值不准 必须transitionend事件之后获取,有点卡顿 改用setTimeout
-                    setTimeout(function(){
-                        that.touchRecover(line,that.topNavSwiper);
-                    },0);
-            }); 
-            that.pageContainerSwiper.on('TouchMove',function(swiper, event){
-                that.touchMove(line,swiper,that.topNavSwiper);
-            }); 
-            that.pageContainerSwiper.on('TouchEnd',function(swiper, event){
-                that.touchRecover(line,that.topNavSwiper);
-            }); 
-            that.topNavSwiper.on('tap', function(swiper, event) {
-                that.CenterAlignment(swiper,swiper.clickedIndex,{lineMove:true});
-                that.pageContainerSwiper.slideTo(swiper.clickedIndex);//联动   
-
-            });
-        },0,that);
   },
   mounted () {
     //初始化swiper页面
     const that=this; 
-    let line=document.querySelector('.line');
-
+    that.line=document.querySelector('.line');              
     that.pageContainerSwiper = new Swiper('#pageContainer',{
         autoHeight: true, //高度随内容变化
         freeMode : false, //惯性滑动且不会贴合
         observer:true,//当改变swiper的样式（例如隐藏/显示）或者修改swiper的子元素时，自动初始化swiper
         observeParents:true,//当Swiper的父元素变化时，例如window.resize，Swiper更新
-        shortSwipes : false,//设置为false时，进行快速短距离的拖动无法触发Swiper。
         iOSEdgeSwipeDetection : true,//设置为true开启IOS的UIWebView环境下的边缘探测。如果拖动是从屏幕边缘开始则不触发swiper。
         noSwiping : true,//可以在slide上（或其他元素）增加类名'swiper-no-swiping'，使该slide无法拖动
         onSlideChangeStart: function(swiper){
+            that.lineInitL=0;
             that.CenterAlignment(that.topNavSwiper,swiper.activeIndex,{lineMove:true});
         },
     });
@@ -127,28 +97,47 @@ export default {
         observeParents:true,//当Swiper的父元素变化时，例如window.resize，Swiper更新
         onInit: function(swiper){
                 //Swiper初始化了
-            line.style.width=elStyle(swiper.slides[0]).width//下滑线 初始化长度
+            that.line.style.width=elStyle(swiper.slides[0]).width//下滑线 初始化长度
         },
     });
     
+    //初始化 页面设置偏移    
     that.topNavSwiper.once('ReachBeginning',function(swiper){
-        //初始化 页面设置偏移
         let active = document.querySelector('#topNav  .active');
-        let tabArr=document.querySelectorAll('[hashnav]');
-        let index =null;
-        for(let i=0; i<tabArr.length ;i++){
-            if(tabArr[i].getAttribute('hashnav')==active.getAttribute('hashnav')){
-                index=i;
-                break;
-            }
-        }
        swiper.once('SetTranslate',function(s){
-            that.CenterAlignment(s,index,{type:'tran',wrapper:s.wrapper[0]});
+            that.CenterAlignment(s,active,{type:'tran',wrapper:s.wrapper[0],
+                fn:function(swiper,slide,tranL){
+                    that.lineInitL=tranL;
+                }
+            });
        });
 
     });
 
+    that.topNavSwiper.on('tap', function(swiper, event) {
+        that.lineInitL=0;
+        that.CenterAlignment(swiper,swiper.clickedIndex,{lineMove:true});
+        that.pageContainerSwiper.slideTo(swiper.clickedIndex);//联动   
+    });
+
+    that.topNavSwiper.on('TransitionEnd', function(swiper, event) {
+        that.swiperTouchRecover(that.topNavSwiper);
+    });
+
     that.setNav();
+
+    that.pageContainerSwiper.on('TouchMove',function(swiper, event){
+        let diff = Math.abs(swiper.touches.diff) > 10 ? ( swiper.touches.diff > 0 ? 10 : -10 )  : swiper.touches.diff;
+        let active = document.querySelector('#topNav  .active');
+        let activeL = active.offsetLeft;
+        that.line.style.transform='translateX('+(Number(activeL)+diff+that.topNavSwiper.translate+that.lineInitL)+'px)';//下滑线左右滑动
+    }); 
+    that.pageContainerSwiper.on('TouchEnd',function(swiper, event){
+        let active = document.querySelector('#topNav  .active');
+        let activeL = active.offsetLeft;
+        that.line.style.transform='translateX('+(Number(activeL)+that.topNavSwiper.translate+that.lineInitL)+'px)';//下滑线回弹复原
+    }); 
+
   },
   components:{
     loading,
@@ -157,7 +146,7 @@ export default {
   methods:{
       CenterAlignment(swiper,index,opt){
         opt=opt||{};
-        let swiperWidth = swiper.container[0].clientWidth,
+        let swiperWidth = swiper.container[0].clientWidth,tranL,
         maxTranslate = swiper.maxTranslate(),
         maxWidth = -maxTranslate + swiperWidth / 2;
         let slide = (Number(index).toString() != 'NaN') ? swiper.slides[index] : index,
@@ -173,13 +162,15 @@ export default {
                 swiper.setWrapperTranslate(0);
             }else{
                 wrapper.style.transform='translate3d('+0+'px, 0px, 0px)';
+                tranL=0;
             }
 
         } else if (slideCenter > maxWidth) {
             if(opt.type!='tran'){
                 swiper.setWrapperTranslate(maxTranslate);
             }else{
-                wrapper.style.transform='translate3d('+maxTranslate+'px, 0px, 0px)'; 
+                wrapper.style.transform='translate3d('+maxTranslate+'px, 0px, 0px)';
+                tranL=maxTranslate; 
             }
 
         } else {
@@ -188,6 +179,7 @@ export default {
                 swiper.setWrapperTranslate(-nowTlanslate);
             }else{
                 wrapper.style.transform='translate3d('+(-nowTlanslate)+'px, 0px, 0px)';
+                tranL=(-nowTlanslate);
             }
         }
 
@@ -195,13 +187,13 @@ export default {
             let line=document.querySelector('.line'),active = document.querySelector('#topNav  .active');
             removeClass(active,'active');
             addClass(slide,'active');
-            line.style.width=elStyle(slide).width//下滑线 改变长度
+            this.line.style.width=elStyle(slide).width//下滑线 改变长度
             //改变line的偏移,得加上swiper.translate居中后的距离
-            line.style.transform='translateX('+(slide.offsetLeft+swiper.translate)+'px)';
+            this.line.style.transform='translateX('+(slide.offsetLeft+swiper.translate)+'px)';
         }
 
 
-        if(opt.fn) opt.fn(swiper,slide);
+        if(opt.fn) opt.fn(swiper,slide,tranL);
     },
     setNav(){
         let hashnav=this.$route.query.hashnav,that=this,wrapper,
@@ -212,26 +204,27 @@ export default {
         let contentArr=document.querySelectorAll('[hashcontent]');
         for(let i=0; i<contentArr.length ;i++){
             if(contentArr[i].getAttribute('hashcontent')==hashnav){
-                that.pageContainerSwiper.slideTo(i);
+                that.pageContainerSwiper.slideTo(i);//会触发 ReachBeginning事件
                 break;
             }
         }
     },
-    touchMove(line,swiper,topNavSwiper){
-        let that=this;
-        let diff = Math.abs(swiper.touches.diff) > 10 ? ( swiper.touches.diff > 0 ? 10 : -10 )  : swiper.touches.diff;
+    swiperTouchRecover(topNavSwiper,tranL){
         let active = document.querySelector('#topNav  .active');
         let activeL = active.offsetLeft;
-        if (Math.abs(topNavSwiper.translate) > 30  ){
-            line.style.transform='translateX('+(active.offsetLeft+topNavSwiper.translate)+'px)';
-            return ;
-        }
-        line.style.transform='translateX('+(Number(activeL)+diff+topNavSwiper.translate)+'px)';//下滑线左右滑动
+        tranL = tranL || 0;
+        this.line.style.transform='translateX('+(Number(activeL)+topNavSwiper.translate+tranL)+'px)';//下滑线回弹复原
     },
-    touchRecover(line,topNavSwiper){
+    navTouchstart($event) {
+        $event.preventDefault();
+    },
+    navTouchmove($event) {
+        let that=this,topNavSwiper=that.topNavSwiper;
+        let diff = Math.abs(topNavSwiper.touches.diff) > 10 ? ( topNavSwiper.touches.diff > 0 ? 10 : -10 )  : topNavSwiper.touches.diff;
         let active = document.querySelector('#topNav  .active');
-        line.style.transform='translateX('+(active.offsetLeft+topNavSwiper.translate)+'px)';//下滑线回弹复原
-    } 
+        let activeL = active.offsetLeft;
+        that.line.style.transform='translateX('+(Number(activeL)+diff+topNavSwiper.translate)+'px)';//下滑线左右滑动
+    }
   }
 }
 </script>
