@@ -59,6 +59,7 @@ import '../../style/swiper-3.4.2.min.css'
 import '../../plugins/swiper-3.4.2.min.js'
 import loading from '@/components/loading/loading'
 import { addClass , removeClass , elStyle } from '@/config/mUtils.js'
+import ajax from '@/plugins/ajax'
 import headNav from '@/components/header/headNav'
 
 
@@ -74,6 +75,7 @@ export default {
     }
   },
   mounted () {
+    ajax('http://127.0.0.1:3003/api/v1/news');
     //初始化swiper页面
     const that=this; 
     that.line=document.querySelector('.line');              

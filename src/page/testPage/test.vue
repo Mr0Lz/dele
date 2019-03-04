@@ -1,16 +1,5 @@
 <template>
     <section>
-        <p>企业名称:{{companyConfig.name}}</p>
-        <p>企业电话:{{companyConfig.telephone}}</p>
-        <p>企业logo:<img class="logo" :src="companyConfig.logo"></p>
-        <p>网页可见区域宽：document.body.clientWidth{{clientWidth}}</p>
-        <p>网页可见区域宽：document.body.offsetWidth (包括边线的宽){{offsetWidth}}</p>
-        <p>屏幕分辨率的宽：window.screen.width{{width}}</p>
-        <p>屏幕可用工作区宽度：window.screen.availWidth{{availWidth}}</p>
-        <loading style="width:0.6rem;"></loading>
-        <svg class="logo">
-            <use xlink:href="#logo"></use>
-        </svg>
         <transition name="fade"  >
             <layer v-if="showLayer">
                 <div class="layer-content" slot="layer-content">
@@ -45,7 +34,8 @@
             </layer>
         </transition>     
         <div class="link-box">
-            <star :len="5" :score="0" :val="1" ></star>
+            <router-link to="/test/data">网站资源展示</router-link> 
+            <router-link to="/test/scroll">scroll</router-link> 
             <router-link to="/myOrder">我的订单</router-link>     
             <router-link to="/myOrder?hashnav=4">我的订单 待收货</router-link>  
             <span @click="showTestLayer">showTestLayer</span>  
@@ -62,27 +52,23 @@
             <router-link to="/result?title=商城&btnText=查看订单详情&msg=下单成功&details=已收到您的订单，我们会尽快安排配送 敬请您耐心等候&callBack=toPersonalInfo">下单成功</router-link>
             <router-link to="/result?title=商城&btnText=订单详情&msg=评价成功&details=已收到您的宝贵评价，谢谢您， 我们会继续努力，做得更好。&callBack=toPersonalInfo">评价成功</router-link>
             <router-link to="/result?title=商城&btnText=售后详情&msg=提交成功&details=抱歉，得乐的商品没能让您满意， 请放心，客服会尽快处理您的售后申请。&callBack=toPersonalInfo">提交成功</router-link>
-        </div>  
+        </div>
+        <transition name="router-slid" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </section>
 </template>
 
 <script>
-import loading from '@/components/loading/loading'
-import star from '@/components/star/star'
+
 import layer from '@/components/layer/layer'
 import quantity from "@/components/quantity/quantity"
-//企业信息
-import companyConfig from '@/config/companyConfig'
+
 
 export default {
     name : 'test',
     data : function (){
         return {
-            clientWidth:document.body.clientWidth,
-            offsetWidth:document.body.offsetWidth,
-            width:window.screen.width,
-            availWidth:window.screen.availWidth,
-            companyConfig:companyConfig,
             showLayer:false,
             showShoppingCart:false,
             commodityArr:[
@@ -103,10 +89,7 @@ export default {
         }
     },
     components : {
-        star,
         layer,
-        quantity,
-        loading
     },
     methods : {
         closeLayer(){
@@ -306,5 +289,14 @@ to {
         }
 
     }
+
+    .router-slid-enter-active, .router-slid-leave-active {
+        transition: all .4s;
+    }
+    .router-slid-enter, .router-slid-leave-active {
+        transform: translate3d(2rem, 0, 0);
+        opacity: 0;
+    }
+
 
 </style>

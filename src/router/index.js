@@ -10,6 +10,9 @@ import Router from 'vue-router'
 
 //测试用
 const test = r => require.ensure([],() => r(require('@/page/testPage/test')),'test')
+const testScroll = r => require.ensure([],() => r(require('@/page/testPage/children/testScroll')),'testScroll')
+const testData = r => require.ensure([],() => r(require('@/page/testPage/children/testData')),'testData')
+
 
 const today = r => require.ensure([],() => r(require('@/page/today/today')),'today')
 const personal = r => require.ensure([],() => r(require('@/page/personal/personal')),'personal')
@@ -41,7 +44,15 @@ export default new Router({
     {
       path: '/test',
       name: 'test',
-      component: test
+      component: test,
+      children: [
+        {
+          path: 'scroll',component: testScroll
+        },
+        {
+          path: 'data',component: testData
+        }
+      ]
     },
     {
       path: '/shoppingBag',
