@@ -10,11 +10,14 @@ export default {
     name: 'avatar',
     data(){
         return {
-            src:this.imgSrc || 'static/avatar.jpg' 
+            src:this.imgSrc
         }
     },
     props:{
-        imgSrc:String
+        imgSrc:{
+            type: String,
+            default: 'static/avatar.jpg'
+        }
     },
     methods: {
         onAvatarTap($event){

@@ -22,6 +22,16 @@
 import headMore from '../SVGIconComponents/header_more_svg'
 export default {
     props:['title','goback'],
+    props:{
+        title : {
+            type:String,
+            default:'title'
+        },
+        goback :{
+            type:Boolean,
+            default:false
+        }
+    },
     name: 'headNav',
     components:{
         headMore

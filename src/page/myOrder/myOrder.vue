@@ -220,6 +220,9 @@ export default {
     },
     navTouchmove($event) {
         let that=this,topNavSwiper=that.topNavSwiper;
+        if(Math.abs(topNavSwiper.touches.diff)<10){
+            return ;
+        }
         let diff = Math.abs(topNavSwiper.touches.diff) > 10 ? ( topNavSwiper.touches.diff > 0 ? 10 : -10 )  : topNavSwiper.touches.diff;
         let active = document.querySelector('#topNav  .active');
         let activeL = active.offsetLeft;

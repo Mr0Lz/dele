@@ -6,7 +6,7 @@
         <p>网页可见区域宽：document.body.clientWidth{{clientWidth}}</p>
         <p>网页可见区域宽：document.body.offsetWidth (包括边线的宽){{offsetWidth}}</p>
         <p>屏幕分辨率的宽：window.screen.width{{width}}</p>
-        <p>屏幕可用工作区高度：window.screen.availWidth{{availWidth}}</p>
+        <p>屏幕可用工作区宽度：window.screen.availWidth{{availWidth}}</p>
         <loading style="width:0.6rem;"></loading>
         <svg class="logo">
             <use xlink:href="#logo"></use>
