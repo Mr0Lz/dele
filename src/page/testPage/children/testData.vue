@@ -61,6 +61,7 @@ export default {
         top: 0;
         left: 0;
         z-index: 202;
+        background: #fff;
         p{
             font-size: 0.16rem;
             padding: 0.2rem;

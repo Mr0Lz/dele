@@ -1,7 +1,7 @@
 <template>
 
-    <section class="myOrder page-container">
-        <head-nav title="我的得乐" :goback="true" ></head-nav>
+    <section class="myOrder testScroll page-container">
+        <head-nav title="滚动刷新,滚动加载更多" :goback="true" ></head-nav>
 
         <section class="top-nav-container">
             <div id="topNav" class="swiper-container" @touchstart.stop="navTouchstart"  @touchmove.stop="navTouchmove">
@@ -32,19 +32,12 @@
 
 
         <!-- 内容块 -->
-        <section class="page-swiper-container ">
-
+        <section class="page-swiper-container m-t-10">
             <div  id="pageContainer" class="swiper-container ">
                 <div class="swiper-wrapper">
-                    <div :class="['swiper-slide']" hashcontent="1">11
-                    </div>
-                    <div :class="['swiper-slide']" hashcontent="2">22
-                    </div>
-                    <div :class="['swiper-slide']" hashcontent="3">33
-                    </div>
-                    <div :class="['swiper-slide']" hashcontent="4">44
-                    </div>
-                    <div :class="['swiper-slide']" hashcontent="5">55
+                    <div ref="slide" :class="['swiper-slide']" v-for="(item, index) in slideArr  "  :key="index"  :hashcontent="item.hash">
+                        <scroll v-if="item.isReady"></scroll>
+                        <loading v-else class="loading"></loading>
                     </div>
                 </div>
             </div>
@@ -54,30 +47,35 @@
 </template>
 
 <script>
-import '../../style/swiper-3.4.2.min.css'
-import '../../plugins/swiper-3.4.2.min.js'
+import '@/style/swiper-3.4.2.min.css'
+import '@/plugins/swiper-3.4.2.min.js'
 import { addClass , removeClass , elStyle } from '@/config/mUtils.js'
 import ajax from '@/plugins/ajax'
 import headNav from '@/components/header/headNav'
-
+import scroll from '@/components/scroll/scroll'
+import loading from '@/components/loading/loading'
 
 export default {
-  name: 'myOrder',
-  data(){
-    return {
-      isReady: false,
-      pageContainerSwiper:null,
-      topNavSwiper:null,
-      line:null,
-      lineInitL:0
-    }
-  },
-  mounted () {
+    name : 'testScroll',
+      data(){
+        return {
+            pageContainerSwiper:null,
+            topNavSwiper:null,
+            line:null,
+            lineInitL:0,
+            slideArr:[
+                {hash:1,isReady:false},
+                {hash:2,isReady:false},
+                {hash:3,isReady:false},
+                {hash:4,isReady:false},
+                ]
+        }
+    },
+    mounted () {
     //初始化swiper页面
     const that=this; 
     that.line=document.querySelector('.line');              
     that.pageContainerSwiper = new Swiper('#pageContainer',{
-        autoHeight: true, //高度随内容变化
         freeMode : false, //惯性滑动且不会贴合
         observer:true,//当改变swiper的样式（例如隐藏/显示）或者修改swiper的子元素时，自动初始化swiper
         observeParents:true,//当Swiper的父元素变化时，例如window.resize，Swiper更新
@@ -86,6 +84,8 @@ export default {
         onSlideChangeStart: function(swiper){
             that.lineInitL=0;
             that.CenterAlignment(that.topNavSwiper,swiper.activeIndex,{lineMove:true});
+            //加载slide数据
+            that.slideArr[that.pageContainerSwiper.activeIndex].isReady=true;
         },
     });
 
@@ -110,13 +110,12 @@ export default {
                 }
             });
        });
-
     });
 
     that.topNavSwiper.on('tap', function(swiper, event) {
         that.lineInitL=0;
         that.CenterAlignment(swiper,swiper.clickedIndex,{lineMove:true});
-        that.pageContainerSwiper.slideTo(swiper.clickedIndex);//联动   
+        that.pageContainerSwiper.slideTo(swiper.clickedIndex);//联动 
     });
 
     that.topNavSwiper.on('TransitionEnd', function(swiper, event) {
@@ -137,11 +136,16 @@ export default {
         that.line.style.transform='translateX('+(Number(activeL)+that.topNavSwiper.translate+that.lineInitL)+'px)';//下滑线回弹复原
     }); 
 
+
+
+
   },
-  components:{
-    headNav
-  },
-  methods:{
+components : {
+        scroll,
+        headNav,
+        loading
+    },
+methods:{
       CenterAlignment(swiper,index,opt){
         opt=opt||{};
         let swiperWidth = swiper.container[0].clientWidth,tranL,
@@ -196,16 +200,22 @@ export default {
     setNav(){
         let hashnav=this.$route.query.hashnav,that=this,wrapper,
             navTab=document.querySelector('[hashnav="'+hashnav+'"]');
-            if(!hashnav&&!navTab){
-                return false;
+
+
+        if(hashnav&&navTab){//存在hashnav 直接跳转指定slide
+            let contentArr=document.querySelectorAll('[hashcontent]');
+            for(let i=0; i<contentArr.length ;i++){
+                if(contentArr[i].getAttribute('hashcontent')==hashnav){
+                    that.pageContainerSwiper.slideTo(i);//会触发 ReachBeginning事件
+                    break;
+                }
             }
-        let contentArr=document.querySelectorAll('[hashcontent]');
-        for(let i=0; i<contentArr.length ;i++){
-            if(contentArr[i].getAttribute('hashcontent')==hashnav){
-                that.pageContainerSwiper.slideTo(i);//会触发 ReachBeginning事件
-                break;
-            }
+        }else{
+            //不存在默认初始化第一个slide的数据
+            that.slideArr[that.pageContainerSwiper.activeIndex].isReady=true
         }
+
+        
     },
     swiperTouchRecover(topNavSwiper,tranL){
         let active = document.querySelector('#topNav  .active');
@@ -225,16 +235,23 @@ export default {
         let active = document.querySelector('#topNav  .active');
         let activeL = active.offsetLeft;
         that.line.style.transform='translateX('+(Number(activeL)+diff+topNavSwiper.translate)+'px)';//下滑线左右滑动
-    }
+    },
+    getOrderList(){}
   }
 }
 </script>
 
-<style  lang="scss" scoped>
-@import '../../style/mixin';
+<style scoped lang="scss">
+@import '../../../style/mixin';
 
-.myOrder { 
-    background: $lightGray;
+    .testScroll{
+        position: absolute;
+        background: $white;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 202;
+        background: $lightGray;
     .top-nav-container{
         background: $white;
         position: relative;
@@ -277,9 +294,16 @@ export default {
         margin-left:-0.12rem;
         margin-top:-0.12rem;
         }
+    
+        .swiper-container {
+            background: $white;
+        }
+
+        .loading{
+            @include wh(0.4rem);
+        
+        }
     }
 }
 
-
 </style>
-

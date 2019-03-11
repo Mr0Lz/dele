@@ -1,6 +1,6 @@
 <template>
     <section class="shoppingBag page-container">
-        <head-nav title="购物袋" goback="ture"></head-nav>
+        <head-nav title="购物袋" :goback="true"></head-nav>
 
         <section class="shoppingBag-container ">
 
@@ -221,7 +221,7 @@ export default {
             });
         },
         changeVal(item,val){
-            console.log(item,val);
+            console.log(item,val,'changeVal');
            item.quantity=val;
         },
         invalidClear(){
