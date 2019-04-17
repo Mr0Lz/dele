@@ -32,12 +32,11 @@
 
 
         <!-- 内容块 -->
-        <section class="page-swiper-container m-t-10">
+        <section class="page-swiper-container ">
             <div  id="pageContainer" class="swiper-container ">
                 <div class="swiper-wrapper">
                     <div ref="slide" :class="['swiper-slide']" v-for="(item, index) in slideArr  "  :key="index"  :hashcontent="item.hash">
-                        <scroll v-if="item.isReady"></scroll>
-                        <loading v-else class="loading"></loading>
+                        <scroll :height="560" v-if="item.isReady"></scroll>
                     </div>
                 </div>
             </div>
@@ -64,8 +63,8 @@ export default {
             line:null,
             lineInitL:0,
             slideArr:[
-                {hash:1,isReady:false},
-                {hash:2,isReady:false},
+                {hash:1,isReady:true},
+                {hash:2,isReady:true},
                 {hash:3,isReady:false},
                 {hash:4,isReady:false},
                 ]
@@ -246,7 +245,6 @@ methods:{
 
     .testScroll{
         position: absolute;
-        background: $white;
         top: 0;
         left: 0;
         right: 0;
@@ -289,19 +287,10 @@ methods:{
         position: relative;
 
         .swiper-page-load{
-        @include wh(0.24rem);
-        @include absolute(50%,50%);
-        margin-left:-0.12rem;
-        margin-top:-0.12rem;
-        }
-    
-        .swiper-container {
-            background: $white;
-        }
-
-        .loading{
-            @include wh(0.4rem);
-        
+            @include wh(0.24rem);
+            @include absolute(50%,50%);
+            margin-left:-0.12rem;
+            margin-top:-0.12rem;
         }
     }
 }
