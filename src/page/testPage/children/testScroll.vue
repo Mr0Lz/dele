@@ -32,11 +32,26 @@
 
 
         <!-- 内容块 -->
-        <section class="page-swiper-container ">
+        <section class="page-swiper-container">
             <div  id="pageContainer" class="swiper-container ">
                 <div class="swiper-wrapper">
                     <div ref="slide" :class="['swiper-slide']" v-for="(item, index) in slideArr  "  :key="index"  :hashcontent="item.hash">
-                        <scroll :height="560" v-if="item.isReady"></scroll>
+                        <!-- <scroll 
+                        :height="560" 
+                        v-if="item.isReady" 
+                        :pullDownRefresh="pullDownRefreshObj"
+                        > -->
+                        <scroll 
+                        :scrollbar = "scrollbarObj"
+                        @pullingDown = "onPullingDown"
+                        :pullDownRefresh = "pullDownRefreshObj"
+                        :pullUpLoad = "pullUpLoadObj"
+                        @pullingUp = "onPullingUp"
+                        >
+                                    <ul >
+                                        <li v-for="(item,index) in items" :key="index">{{item}}</li>
+                                    </ul>
+                        </scroll>
                     </div>
                 </div>
             </div>
@@ -67,10 +82,36 @@ export default {
                 {hash:2,isReady:true},
                 {hash:3,isReady:false},
                 {hash:4,isReady:false},
-                ]
+                ],
+            items: [1,2,3,4,5],
+
+            // 这个配置用于做下拉刷新功能，默认为 false。当设置为 true 或者是一个 Object 的时候，可以开启下拉刷新，可以配置顶部下拉的距离（threshold） 来决定刷新时机以及回弹停留的距离（stop）
+            pullDownRefreshObj: {
+                threshold: 90,
+                stop: 40 //菊花图的高度
+            },
+            // 这个配置可以开启滚动条，默认为 false。当设置为 true 或者是一个 Object 的时候，都会开启滚动条，默认是会 fade 的
+            scrollbarObj: {
+                fade: true
+            },
+            // 这个配置用于做上拉加载功能，默认为 false。当设置为 true 或者是一个 Object 的时候，可以开启上拉加载，可以配置离底部距离阈值（threshold）来决定开始加载的时机
+            pullUpLoadObj: {
+                threshold: 0,
+                txt: {
+                    more: '加载更多',
+                    noMore: '没有更多数据了'
+                }
+            },
+
         }
     },
     mounted () {
+    //加载列表
+    this.getData().then((res)=>{
+        console.log(res)
+        this.items = res;
+        // this.items = [];
+    });
     //初始化swiper页面
     const that=this; 
     that.line=document.querySelector('.line');              
@@ -145,6 +186,42 @@ components : {
         loading
     },
 methods:{
+
+          // 模拟数据请求
+      getData() {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            const arr = []
+            for (let i = 0; i < 10; i++) {
+                var n = Math.floor(Math.random()*100);
+              arr.push(n)
+            }
+            resolve(arr)
+          }, 3000)
+        })
+      },
+      onPullingDown(scroll) {
+        // 模拟下拉刷新
+        console.log('下拉刷新')
+        this.getData().then(res => {
+          this.items = res
+          console.log(scroll);
+          scroll.forceUpdate(true);//告诉插件回调完成
+        })
+      },
+      onPullingUp(scroll) {
+        // 模拟上拉 加载更多数据
+        console.log('上拉加载');
+        this.getData().then(res => {
+          this.items = this.items.concat(res);
+            if(Math.floor(Math.random()*100)>80){
+                scroll.forceUpdate(false);//没有数据
+            }else{
+                scroll.forceUpdate(true);//继续加载
+            }
+        })
+      },
+
       CenterAlignment(swiper,index,opt){
         opt=opt||{};
         let swiperWidth = swiper.container[0].clientWidth,tranL,
@@ -244,6 +321,13 @@ methods:{
 @import '../../../style/mixin';
 
     .testScroll{
+
+        li{
+            margin-bottom: 0.1rem;
+            background: $white;
+        }
+
+
         position: absolute;
         top: 0;
         left: 0;
