@@ -106,12 +106,6 @@ export default {
         }
     },
     mounted () {
-    //加载列表
-    this.getData().then((res)=>{
-        console.log(res)
-        this.items = res;
-        // this.items = [];
-    });
     //初始化swiper页面
     const that=this; 
     that.line=document.querySelector('.line');              
@@ -140,6 +134,8 @@ export default {
         },
     });
     
+    setTimeout(function () {
+
     //初始化 页面设置偏移    
     that.topNavSwiper.once('ReachBeginning',function(swiper){
         let active = document.querySelector('#topNav  .active');
@@ -176,8 +172,7 @@ export default {
         that.line.style.transform='translateX('+(Number(activeL)+that.topNavSwiper.translate+that.lineInitL)+'px)';//下滑线回弹复原
     }); 
 
-
-
+    },0);
 
   },
 components : {
@@ -188,7 +183,7 @@ components : {
 methods:{
 
           // 模拟数据请求
-      getData() {
+      getData(t) {
         return new Promise(resolve => {
           setTimeout(() => {
             const arr = []
@@ -197,7 +192,7 @@ methods:{
               arr.push(n)
             }
             resolve(arr)
-          }, 3000)
+          },t || 3000)
         })
       },
       onPullingDown(scroll) {

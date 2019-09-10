@@ -6,25 +6,7 @@
         <section class="top-nav-container">
             <div id="topNav" class="swiper-container" @touchstart.stop="navTouchstart"  @touchmove.stop="navTouchmove">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide active" hashnav="1">全部</div>
-                    <div class="swiper-slide" hashnav="2">待付款</div>
-                    <div class="swiper-slide" hashnav="3">待发货</div>
-                    <div class="swiper-slide" hashnav="4">待收货</div>
-                    <div class="swiper-slide" hashnav="5">待评价</div>
-                    <div class="swiper-slide" >娱乐</div>
-                    <div class="swiper-slide">科技</div>
-                    <div class="swiper-slide">问答</div>
-                    <div class="swiper-slide">汽车</div>
-                    <div class="swiper-slide">财经</div>
-                    <div class="swiper-slide">军事</div>
-                    <div class="swiper-slide">体育</div>
-                    <div class="swiper-slide">段子</div>
-                    <div class="swiper-slide">美女</div>
-                    <div class="swiper-slide">国际</div>
-                    <div class="swiper-slide">趣图</div>
-                    <div class="swiper-slide">健康</div>
-                    <div class="swiper-slide">特产</div>
-                    <div class="swiper-slide">房产</div>
+                    <div  :key="index"  v-for=" (item, index) in navArr " :class="['swiper-slide', item.isActive ]" :hashnav="item.hashnav">{{item.txt}}</div>
                 </div>
             </div>
             <span class="line"></span>
@@ -36,15 +18,18 @@
 
             <div  id="pageContainer" class="swiper-container ">
                 <div class="swiper-wrapper">
-                    <div :class="['swiper-slide']" hashcontent="1">11
-                    </div>
-                    <div :class="['swiper-slide']" hashcontent="2">22
-                    </div>
-                    <div :class="['swiper-slide']" hashcontent="3">33
-                    </div>
-                    <div :class="['swiper-slide']" hashcontent="4">44
-                    </div>
-                    <div :class="['swiper-slide']" hashcontent="5">55
+                    <div  :i="index" :key="index"  v-for=" (item, index) in navArr "  class="swiper-slide" :hashcontent="item.hashnav" >
+                        <scroll 
+                        :scrollbar = "scrollbarObj"
+                        @pullingDown = "onPullingDown"
+                        :pullDownRefresh = "pullDownRefreshObj"
+                        :pullUpLoad = "pullUpLoadObj"
+                        @pullingUp = "onPullingUp"
+                        >
+                                    <ul >
+                                        <li v-for="(item,index) in items" :key="index">{{item}}</li>
+                                    </ul>
+                        </scroll>
                     </div>
                 </div>
             </div>
@@ -59,17 +44,41 @@ import '../../plugins/swiper-3.4.2.min.js'
 import { addClass , removeClass , elStyle } from '@/config/mUtils.js'
 import ajax from '@/plugins/ajax'
 import headNav from '@/components/header/headNav'
-
+import scroll from '@/components/scroll/scroll'
 
 export default {
   name: 'myOrder',
   data(){
     return {
-      isReady: false,
+//页面切换部分
       pageContainerSwiper:null,
       topNavSwiper:null,
       line:null,
-      lineInitL:0
+      lineInitL:0,
+// 导航栏配置数据 isActive 选中样式 默认初始加载
+      navArr:[
+            {txt:'全部',hashnav:1,isActive:'active'},
+            {txt:'待付款',hashnav:2},
+            {txt:'待发货',hashnav:3},
+            {txt:'待收货',hashnav:4},
+            {txt:'待评价',hashnav:5},
+      ],
+// sroll下拉刷新部分
+        pullDownRefreshObj: {
+            threshold: 90,
+            stop: 40
+        },
+        scrollbarObj: {
+            fade: true
+        },
+        pullUpLoadObj: {
+            threshold: 0,
+            txt: {
+                more: '加载更多',
+                noMore: '没有更多数据了'
+            }
+        },
+        items: [1,2,3,4,5],//每个页面测试数据
     }
   },
   mounted () {
@@ -99,6 +108,8 @@ export default {
             that.line.style.width=elStyle(swiper.slides[0]).width//下滑线 初始化长度
         },
     });
+
+    setTimeout(function () {
     
     //初始化 页面设置偏移    
     that.topNavSwiper.once('ReachBeginning',function(swiper){
@@ -117,13 +128,14 @@ export default {
         that.lineInitL=0;
         that.CenterAlignment(swiper,swiper.clickedIndex,{lineMove:true});
         that.pageContainerSwiper.slideTo(swiper.clickedIndex);//联动   
+        console.log(swiper, event);
     });
 
     that.topNavSwiper.on('TransitionEnd', function(swiper, event) {
         that.swiperTouchRecover(that.topNavSwiper);
     });
 
-    that.setNav();
+    that.initSetNav();
 
     that.pageContainerSwiper.on('TouchMove',function(swiper, event){
         let diff = Math.abs(swiper.touches.diff) > 10 ? ( swiper.touches.diff > 0 ? 10 : -10 )  : swiper.touches.diff;
@@ -136,12 +148,57 @@ export default {
         let activeL = active.offsetLeft;
         that.line.style.transform='translateX('+(Number(activeL)+that.topNavSwiper.translate+that.lineInitL)+'px)';//下滑线回弹复原
     }); 
+    
+    },0);
 
   },
   components:{
-    headNav
+    headNav,
+    scroll
   },
   methods:{
+    // 下次的问题
+    //初始打开页面没有hashnav参数 默认按配置navArr  isActive 设置的页面加载,有hashnav参数 加载参数指定的页面
+    //点击nav加载各自的页面 ,进阶优化重复点击 不重新请求数据和加载
+    //滑动切换页面加载数据 ,进阶优化重复滑动 不重新请求数据和加载
+    //上拉查看更多
+    //下拉刷新
+    //scroll  下拉刷新部分
+      getData(t) {// 模拟数据请求
+        return new Promise(resolve => {
+          setTimeout(() => {
+            const arr = []
+            for (let i = 0; i < 10; i++) {
+                var n = Math.floor(Math.random()*100);
+              arr.push(n)
+            }
+            resolve(arr)
+          },t || 3000)
+        })
+      },
+      onPullingDown(scroll) {
+        // 模拟下拉刷新
+        console.log('下拉刷新')
+        this.getData().then(res => {
+          this.items = res
+          console.log(scroll);
+          scroll.forceUpdate(true);//告诉插件回调完成
+        })
+      },
+      onPullingUp(scroll) {
+        // 模拟上拉 加载更多数据
+        console.log('上拉加载');
+        this.getData().then(res => {
+          this.items = this.items.concat(res);
+            if(Math.floor(Math.random()*100)>80){
+                scroll.forceUpdate(false);//没有数据
+            }else{
+                scroll.forceUpdate(true);//继续加载
+            }
+        })
+      },
+
+    // 切换页面部分
       CenterAlignment(swiper,index,opt){
         opt=opt||{};
         let swiperWidth = swiper.container[0].clientWidth,tranL,
@@ -193,19 +250,16 @@ export default {
 
         if(opt.fn) opt.fn(swiper,slide,tranL);
     },
-    setNav(){
+    initSetNav(){
         let hashnav=this.$route.query.hashnav,that=this,wrapper,
-            navTab=document.querySelector('[hashnav="'+hashnav+'"]');
-            if(!hashnav&&!navTab){
+            navTab=document.querySelector('[hashnav="'+hashnav+'"]'),
+            content=document.querySelector('[hashcontent="'+hashnav+'"]');
+            if(!hashnav&&!navTab&&!content){
                 return false;
             }
-        let contentArr=document.querySelectorAll('[hashcontent]');
-        for(let i=0; i<contentArr.length ;i++){
-            if(contentArr[i].getAttribute('hashcontent')==hashnav){
-                that.pageContainerSwiper.slideTo(i);//会触发 ReachBeginning事件
-                break;
-            }
-        }
+            let i=content.getAttribute('i');
+            
+            that.pageContainerSwiper.slideTo(i);//会触发 ReachBeginning事件
     },
     swiperTouchRecover(topNavSwiper,tranL){
         let active = document.querySelector('#topNav  .active');
